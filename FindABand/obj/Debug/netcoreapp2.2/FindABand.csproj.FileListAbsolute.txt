@@ -30,3 +30,5 @@ C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\FindAB
 C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\FindABand.dll
 C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\FindABand.pdb
 C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\FindABand.csproj.CopyComplete
+C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Song\Create.g.cshtml.cs
+C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\Create.g.cshtml.cs
