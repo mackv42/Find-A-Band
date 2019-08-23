@@ -15,7 +15,47 @@ namespace FindABand.Controllers
 
         public HomeController(ApplicationDbContext context)
         {
-            _context = context;
+            //_context = context;
+
+            //context.Genres.Add(new Models.Genre("Blues"));
+            //context.Genres.Add(new Models.Genre("Jazz"));
+            //context.Genres.Add(new Models.Genre("Folk"));
+            //context.Genres.Add(new Models.Genre("Country"));
+            //context.Genres.Add(new Models.Genre("Rock"));
+            //context.Genres.Add(new Models.Genre("Metal"));
+            //context.Genres.Add(new Models.Genre("Surf"));
+            //context.Genres.Add(new Models.Genre("Ska"));
+            //context.Genres.Add(new Models.Genre("EDM / Electronic"));
+            //context.Genres.Add(new Models.Genre("Hip Hop"));
+            //context.Genres.Add(new Models.Genre("Rap"));
+            //context.Genres.Add(new Models.Genre("Pop"));
+            //context.Genres.Add(new Models.Genre("R&B"));
+            //context.Genres.Add(new Models.Genre("Reggae"));
+            //context.Genres.Add(new Models.Genre("Latin"));
+            //context.Genres.Add(new Models.Genre("Classical"));
+            //context.Genres.Add(new Models.Genre("religious/spirtual"));
+            //context.Genres.Add(new Models.Genre("Cultural"));
+
+            //context.SaveChanges();
+            //_context = context;
+
+            //context.Instruments.Add(new Models.Instrument("Guitar"));
+            //context.Instruments.Add(new Models.Instrument("Bass"));
+            //context.Instruments.Add(new Models.Instrument("Drums"));
+            //context.Instruments.Add(new Models.Instrument("Piano"));
+            //context.Instruments.Add(new Models.Instrument("Banjo"));
+            //context.Instruments.Add(new Models.Instrument("Mandolin"));
+            //context.Instruments.Add(new Models.Instrument("Violin"));
+            //context.Instruments.Add(new Models.Instrument("Cello"));
+            //context.Instruments.Add(new Models.Instrument("Upright Bass"));
+            //context.Instruments.Add(new Models.Instrument("Trumpet"));
+            //context.Instruments.Add(new Models.Instrument("Trombone"));
+            //context.Instruments.Add(new Models.Instrument("Saxophone"));
+            //context.Instruments.Add(new Models.Instrument("Clarinet"));
+            //context.Instruments.Add(new Models.Instrument("Flute"));
+            //context.Instruments.Add(new Models.Instrument("Voice (Vocalist)"));
+
+            //context.SaveChanges();
         }
 
         public IActionResult Index()

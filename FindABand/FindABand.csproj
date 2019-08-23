@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <Folder Include="Songs\" />
+    <Folder Include="Views\UserAccount\" />
   </ItemGroup>
 
 </Project>

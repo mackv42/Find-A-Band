@@ -9,6 +9,8 @@ namespace FindABand.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        internal object database;
+
         public DbSet<UserAccount> UserAccounts { get; set; }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Genre> Genres { get; set; }

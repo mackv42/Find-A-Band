@@ -8,6 +8,11 @@ namespace FindABand.Models
 {
     public class Genre
     {
+        public Genre() { }
+        public Genre( string n )
+        {
+            Name = n;
+        }
         [Key]
         public int GenreId { get; set; }
         public string Name { get; set; }
