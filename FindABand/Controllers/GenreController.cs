@@ -1,55 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using FindABand.Data;
-using FindABand.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FindABand.Controllers
 {
-    public class UserAccountController : Controller
+    public class GenreController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public UserAccountController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-        // GET: UserAccount
+        // GET: Genre
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: UserAccount/Details/5
+        // GET: Genre/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: UserAccount/Create
+        // GET: Genre/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: UserAccount/Create
+        // POST: Genre/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserAccount account)
+        public ActionResult Create(IFormCollection collection)
         {
-            var addAccount = new UserAccount();
-            addAccount.FirstName = account.FirstName;
-            addAccount.LastName = account.LastName;
-            addAccount.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             try
             {
-                _context.UserAccounts.Add(addAccount);
-                _context.SaveChanges();
                 // TODO: Add insert logic here
 
                 return RedirectToAction(nameof(Index));
@@ -60,13 +44,13 @@ namespace FindABand.Controllers
             }
         }
 
-        // GET: UserAccount/Edit/5
+        // GET: Genre/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: UserAccount/Edit/5
+        // POST: Genre/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -83,13 +67,13 @@ namespace FindABand.Controllers
             }
         }
 
-        // GET: UserAccount/Delete/5
+        // GET: Genre/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: UserAccount/Delete/5
+        // POST: Genre/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

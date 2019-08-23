@@ -19,7 +19,7 @@ namespace FindABand.Models
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public virtual List<Instrument> InstrumentsPlayed { get; set; }
-        public virtual List<Genre> GenresPlayed { get; set; }
+        public virtual List<TalentByInstrument> InstrumentsPlayed { get; set; }
+        public virtual List<TalentByGenre> GenresPlayed { get; set; }
     }
 }
