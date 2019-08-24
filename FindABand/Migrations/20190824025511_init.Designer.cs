@@ -4,14 +4,16 @@ using FindABand.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace FindABand.Data.Migrations
+namespace FindABand.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190824025511_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,13 +74,13 @@ namespace FindABand.Data.Migrations
 
                     b.Property<int>("GenreId");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("TalentKey");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TalentByGenre");
+                    b.ToTable("TalentByGenres");
                 });
 
             modelBuilder.Entity("FindABand.Models.TalentByInstrument", b =>
@@ -87,15 +89,15 @@ namespace FindABand.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("GenreId");
+                    b.Property<int>("InstrumentId");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("UserId");
 
                     b.HasKey("TalentKey");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TalentByInstrument");
+                    b.ToTable("TalentByInstruments");
                 });
 
             modelBuilder.Entity("FindABand.Models.UserAccount", b =>
@@ -291,18 +293,16 @@ namespace FindABand.Data.Migrations
 
             modelBuilder.Entity("FindABand.Models.TalentByGenre", b =>
                 {
-                    b.HasOne("FindABand.Models.UserAccount", "User")
-                        .WithMany("GenresPlayed")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("FindABand.Models.TalentByInstrument", b =>
                 {
-                    b.HasOne("FindABand.Models.UserAccount", "User")
-                        .WithMany("InstrumentsPlayed")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("FindABand.Models.UserAccount", b =>

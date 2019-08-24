@@ -11,8 +11,6 @@ function getGenreList() {
            
             for (var j = 0; j < genres.length; j++) {
                 for (var i = 0; i < data.length; i++) {
-                    //genreList.push({ id: data[i].Id, name: data[i].categoryName });
-                    
                     genres[j].innerHTML += "<option value=" + data[i].genreId + ">" + data[i].name + "</option>"
                 }
             }

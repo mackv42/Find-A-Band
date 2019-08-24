@@ -4,16 +4,14 @@ using FindABand.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace FindABand.Data.Migrations
+namespace FindABand.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190823180139_genreconstructor")]
-    partial class genreconstructor
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,11 +27,7 @@ namespace FindABand.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("UserAccountProfileId");
-
                     b.HasKey("GenreId");
-
-                    b.HasIndex("UserAccountProfileId");
 
                     b.ToTable("Genres");
                 });
@@ -46,11 +40,7 @@ namespace FindABand.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("UserAccountProfileId");
-
                     b.HasKey("InstrumentId");
-
-                    b.HasIndex("UserAccountProfileId");
 
                     b.ToTable("Instruments");
                 });
@@ -72,6 +62,40 @@ namespace FindABand.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Songs");
+                });
+
+            modelBuilder.Entity("FindABand.Models.TalentByGenre", b =>
+                {
+                    b.Property<int>("TalentKey")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GenreId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("TalentKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TalentByGenres");
+                });
+
+            modelBuilder.Entity("FindABand.Models.TalentByInstrument", b =>
+                {
+                    b.Property<int>("TalentKey")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("InstrumentId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("TalentKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TalentByInstruments");
                 });
 
             modelBuilder.Entity("FindABand.Models.UserAccount", b =>
@@ -258,21 +282,21 @@ namespace FindABand.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("FindABand.Models.Genre", b =>
-                {
-                    b.HasOne("FindABand.Models.UserAccount")
-                        .WithMany("GenresPlayed")
-                        .HasForeignKey("UserAccountProfileId");
-                });
-
-            modelBuilder.Entity("FindABand.Models.Instrument", b =>
-                {
-                    b.HasOne("FindABand.Models.UserAccount")
-                        .WithMany("InstrumentsPlayed")
-                        .HasForeignKey("UserAccountProfileId");
-                });
-
             modelBuilder.Entity("FindABand.Models.Song", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("FindABand.Models.TalentByGenre", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("FindABand.Models.TalentByInstrument", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()

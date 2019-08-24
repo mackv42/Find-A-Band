@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,9 +13,9 @@ namespace FindABand.Models
         [Key]
         public int TalentKey { get; set; }
         [ForeignKey(nameof(User))]
-        public int UserId { get; set; }
-        public UserAccount User { get; set; }
+        public string UserId { get; set; }
+        public IdentityUser User { get; set; }
 
-        public int GenreId { get; set; }
+        public int InstrumentId { get; set; }
     }
 }
