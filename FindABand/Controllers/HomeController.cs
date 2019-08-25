@@ -15,7 +15,7 @@ namespace FindABand.Controllers
 
         public HomeController(ApplicationDbContext context)
         {
-            //_context = context;
+            _context = context;
 
             //context.Genres.Add(new Models.Genre("Blues"));
             //context.Genres.Add(new Models.Genre("Jazz"));
@@ -60,6 +60,7 @@ namespace FindABand.Controllers
 
         public IActionResult Index()
         {
+            
             return View();
         }
 

@@ -9,6 +9,9 @@ namespace FindABand.LocationUtils
     {
         double  Longitude { get; set; }
         double Latitude { get; set; }
+        string State { get; set; }
+        string City { get; set; }
         string Address { get; set; }
+
     }
 }

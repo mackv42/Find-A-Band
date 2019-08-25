@@ -45,6 +45,9 @@ namespace FindABand.Controllers
             var addAccount = new UserAccount();
             addAccount.FirstName = account.FirstName;
             addAccount.LastName = account.LastName;
+            addAccount.Address = account.Address;
+            addAccount.City = account.City;
+            addAccount.State = account.State;
             addAccount.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             try
             {
