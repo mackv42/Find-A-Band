@@ -43,6 +43,14 @@ namespace FindABand.Controllers
             return View();
         }
 
+        public async Task<IActionResult> List()
+        {
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var songList = _context.Songs.Where(x => x.UserId == id).ToList();
+
+            return View(songList);
+        }
+
 
         public async Task<IActionResult> Upload(List<IFormFile> files)
         {
@@ -78,8 +86,9 @@ namespace FindABand.Controllers
 
 
                         // if you want to store path of folder in database
-                        PathDB = "Songs/" + newFileName;
-                        addSong.FileName = PathDB;
+                        PathDB = "wwwroot/Songs/" + newFileName;
+
+                        addSong.FileName = "Songs/" + newFileName;
 
                         using (FileStream fs = System.IO.File.Create(PathDB))
                         {
@@ -92,8 +101,9 @@ namespace FindABand.Controllers
 
             addSong.UserId = id;
             await _context.Songs.AddAsync(addSong);
+            await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Song");
+            return RedirectToAction("Create", "Song");
         }
 
         // POST: Song/Create
