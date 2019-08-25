@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using FindABand.Data;
 using FindABand.Models;
@@ -40,11 +41,19 @@ namespace FindABand.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Band band)
         {
+            Band addBand = new Band();
+            addBand.City = band.City;
+            addBand.State = band.State;
+            addBand.Name = band.Name;
+            addBand.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            addBand.Description = band.Description;
+            _context.Bands.Add(addBand);
+            _context.SaveChanges();
             try
             {
                
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Band");
             }
             catch
             {

@@ -12,6 +12,7 @@ namespace FindABand.Data
         internal object database;
 
         public DbSet<UserAccount> UserAccounts { get; set; }
+        public DbSet<Band> Bands { get; set; }
         public DbSet<Song> Songs { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Instrument> Instruments { get; set; }
