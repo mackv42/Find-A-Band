@@ -6,6 +6,10 @@ using FindABand.Data;
 using FindABand.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Web;
+using System.IO;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 
 namespace FindABand.Controllers
 {
@@ -13,6 +17,7 @@ namespace FindABand.Controllers
     {
 
         private readonly ApplicationDbContext _context;
+        private object _environment;
 
         public SongController(ApplicationDbContext context)
         {
@@ -36,6 +41,59 @@ namespace FindABand.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+
+
+        public async Task<IActionResult> Upload(List<IFormFile> files)
+        {
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int userId = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
+            var newFileName = string.Empty;
+            Song addSong = new Song();
+
+            if (HttpContext.Request.Form.Files != null)
+            {
+                //var fileName = string.Empty;
+                string PathDB = string.Empty;
+
+                //var files = HttpContext.Request.Form.Files;
+
+                foreach (var file in files)
+                {
+                    if (file.Length > 0)
+                    {
+                        //Getting FileName
+
+
+                        //Assigning Unique Filename (Guid)
+                        //var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                        //Getting file Extension
+                        var FileExtension = Path.GetExtension(file.FileName);
+
+                        // concating  FileName + FileExtension
+                        newFileName = userId.ToString() + "_" + file.FileName;
+
+                        // Combines two strings into a path.
+
+
+                        // if you want to store path of folder in database
+                        PathDB = "Songs/" + newFileName;
+                        addSong.FileName = PathDB;
+
+                        using (FileStream fs = System.IO.File.Create(PathDB))
+                        {
+                            file.CopyTo(fs);
+                            fs.Flush();
+                        }
+                    }
+                }
+            }
+
+            addSong.UserId = id;
+            await _context.Songs.AddAsync(addSong);
+
+            return RedirectToAction("Index", "Song");
         }
 
         // POST: Song/Create

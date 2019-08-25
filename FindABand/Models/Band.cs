@@ -9,20 +9,18 @@ using System.Threading.Tasks;
 
 namespace FindABand.Models
 {
-    public class UserAccount : IHasLocation
+    public class Band : IHasLocation
     {
+        [Key]
+        public int BandId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+        public string Address { get; set; }
+
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
-
-        [Key]
-        public int ProfileId { get; set; }
-
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-
-        public string Address { get; set; }
     }
 }
