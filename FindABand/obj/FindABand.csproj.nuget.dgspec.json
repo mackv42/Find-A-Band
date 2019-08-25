@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vincent\\source\\repos\\FindAband\\FindABand\\FindABand.csproj": {}
+    "C:\\Users\\Vincent\\source\\repos\\FindABand\\FindABand\\FindABand.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vincent\\source\\repos\\FindAband\\FindABand\\FindABand.csproj": {
+    "C:\\Users\\Vincent\\source\\repos\\FindABand\\FindABand\\FindABand.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vincent\\source\\repos\\FindAband\\FindABand\\FindABand.csproj",
+        "projectUniqueName": "C:\\Users\\Vincent\\source\\repos\\FindABand\\FindABand\\FindABand.csproj",
         "projectName": "FindABand",
-        "projectPath": "C:\\Users\\Vincent\\source\\repos\\FindAband\\FindABand\\FindABand.csproj",
+        "projectPath": "C:\\Users\\Vincent\\source\\repos\\FindABand\\FindABand\\FindABand.csproj",
         "packagesPath": "C:\\Users\\Vincent\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vincent\\source\\repos\\FindAband\\FindABand\\obj\\",
+        "outputPath": "C:\\Users\\Vincent\\source\\repos\\FindABand\\FindABand\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -9,11 +9,16 @@ namespace FindABand.Models
 {
     public class BandSongSamples
     {
-        [Key]
-        public int SongSampleId { get; set; }
-
-        [ForeignKey(nameof(_Band))]
+        [ForeignKey(nameof(User))]
         public string UserId { get; set; }
-        public Band _Band { get; set; }
+        public IdentityUser User { get; set; }
+
+        [Key]
+        public int SongId { get; set; }
+
+        public string FileName { get; set; }
+        public string FingerPrint { get; set; }
+
+        public int GenreId { get; set; }
     }
 }

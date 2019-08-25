@@ -18,6 +18,7 @@ namespace FindABand.Models
         public int SongId { get; set; }
 
         public string FileName { get; set; }
+        public string FingerPrint { get; set; }
 
         public int GenreId { get; set; }
     }

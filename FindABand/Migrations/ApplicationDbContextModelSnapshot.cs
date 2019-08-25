@@ -53,6 +53,8 @@ namespace FindABand.Migrations
 
                     b.Property<string>("FileName");
 
+                    b.Property<string>("FingerPrint");
+
                     b.Property<int>("GenreId");
 
                     b.Property<string>("UserId");
