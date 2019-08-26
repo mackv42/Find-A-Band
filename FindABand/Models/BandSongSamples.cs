@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FindABand.Models
 {
-    public class BandSongSamples
+    public class BandSongSample
     {
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
@@ -18,8 +18,6 @@ namespace FindABand.Models
         public int SongId { get; set; }
 
         public string FileName { get; set; }
-        public string FingerPrint { get; set; }
-
         public int GenreId { get; set; }
     }
 }

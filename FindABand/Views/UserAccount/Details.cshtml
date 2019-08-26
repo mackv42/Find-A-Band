@@ -38,12 +38,14 @@
 
     @foreach (var x in Model.Songs)
     {
-        <a href="/@x.FileName"><h4>@x.FileName</h4></a>
-    <hr />
         <audio controls>
             <source src="/@x.FileName" type="audio/mpeg">
         </audio>
-        <br/><br/>
+        <br />
+        <a href="/@x.FileName"><h4>@x.FileName</h4></a>
+        <hr />
+        <br/>
+
     }
 </div>
 <div>
