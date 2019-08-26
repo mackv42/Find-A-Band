@@ -32,6 +32,14 @@ namespace FindABand.Controllers
             return View();
         }
 
+        public async Task<ActionResult> Find()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
+            var UserList = await UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 30);
+            return View(UserList);
+        }
+
         // GET: UserAccount/Details/5
         public ActionResult Details(int id)
         {
