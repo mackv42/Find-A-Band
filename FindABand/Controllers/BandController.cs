@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using FindABand.Data;
+using FindABand.LocationUtils;
 using FindABand.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FindABand.Controllers
 {
     public class BandController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        private static HttpClient client;
         public BandController(ApplicationDbContext context)
         {
+            client = new HttpClient();
             _context = context;
         }
             
@@ -46,7 +51,7 @@ namespace FindABand.Controllers
         // POST: Band/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Band band)
+        public async Task<ActionResult> Create(Band band)
         {
             Band addBand = new Band();
             addBand.City = band.City;
@@ -54,13 +59,19 @@ namespace FindABand.Controllers
             addBand.Name = band.Name;
             addBand.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             addBand.Description = band.Description;
+            var result = await client.GetStringAsync($"https://maps.googleapis.com/maps/api/geocode/json?address={addBand.City}+{addBand.State}&key={GoogleMapsApiKey.Token}");
+            var data = JsonConvert.DeserializeObject<JObject>(result);
+            double lat = (double)data["results"][0]["geometry"]["location"]["lat"];
+            double lon = (double)data["results"][0]["geometry"]["location"]["lng"];
+            addBand.Latitude = lat;
+            addBand.Longitude = lon;
             _context.Bands.Add(addBand);
             _context.SaveChanges();
             try
             {
                
 
-                return RedirectToAction("Details", "Band");
+                return RedirectToAction("MyDetails", "Band");
             }
             catch
             {
