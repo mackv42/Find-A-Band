@@ -18,6 +18,7 @@ namespace FindABand.Data
         public DbSet<Instrument> Instruments { get; set; }
         public DbSet<TalentByInstrument> TalentByInstruments { get; set; }
         public DbSet<TalentByGenre> TalentByGenres { get; set; }
+        public DbSet<Invite> Invites { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
