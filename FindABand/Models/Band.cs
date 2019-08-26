@@ -20,6 +20,7 @@ namespace FindABand.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Address { get; set; }
+        public int GenreId { get; set; }
 
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }

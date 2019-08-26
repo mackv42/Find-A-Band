@@ -62,7 +62,7 @@ namespace FindABand.Controllers
             {
                 // TODO: Add insert logic here
                 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create", "Song");
             }
             catch
             {

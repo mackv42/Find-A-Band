@@ -4,6 +4,10 @@
     ViewData["Title"] = "Create";
 }
 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+
 <h1>Create</h1>
 
 <h4>Band</h4>
@@ -32,6 +36,12 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+            <div>
+                <label class="control-label">Genre Of music</label>
+                <select asp-for="GenreId" class="genres" >
+
+                </select>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -39,8 +49,9 @@
     </div>
 </div>
 
+<script src="~/js/Genres.js"></script>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index"></a>
 </div>
 
 @section Scripts {

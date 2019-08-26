@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using FindABand.Data;
 using FindABand.LocationUtils;
 using FindABand.Models;
+using LiveTunes.MVC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -28,6 +30,13 @@ namespace FindABand.Controllers
         {
             return View();
         }
+
+
+        public async Task<List<Band>> BandsInDistance(Coordinates coordinates, double distance)
+        {
+            return await _context.Bands.Where(x => CoordinatesDistanceExtensions.DistanceTo(coordinates, new Coordinates(x.Latitude, x.Longitude)) < distance).ToListAsync();
+        }
+
 
 
         public ActionResult MyDetails()
@@ -67,6 +76,7 @@ namespace FindABand.Controllers
             addBand.Longitude = lon;
             _context.Bands.Add(addBand);
             _context.SaveChanges();
+
             try
             {
                

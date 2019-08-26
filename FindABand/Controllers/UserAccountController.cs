@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using FindABand.Data;
 using FindABand.LocationUtils;
 using FindABand.Models;
+using LiveTunes.MVC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -78,7 +80,7 @@ namespace FindABand.Controllers
                 _context.SaveChanges();
                 // TODO: Add insert logic here
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create", "TalentByInstrument");
             }
             catch
             {
@@ -87,7 +89,7 @@ namespace FindABand.Controllers
         }
 
         // GET: UserAccount/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
             return View();
         }
@@ -95,7 +97,7 @@ namespace FindABand.Controllers
         // POST: UserAccount/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(UserAccount userAccount)
         {
             try
             {
@@ -109,27 +111,9 @@ namespace FindABand.Controllers
             }
         }
 
-        // GET: UserAccount/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<List<UserAccount>> UsersInDistance(Coordinates coordinates, double distance)
         {
-            return View();
-        }
-
-        // POST: UserAccount/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return await _context.UserAccounts.Where(x => CoordinatesDistanceExtensions.DistanceTo(coordinates, new Coordinates(x.Latitude, x.Longitude)) < distance).ToListAsync();
         }
     }
 }
