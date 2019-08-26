@@ -35,7 +35,7 @@ namespace FindABand.Controllers
             //context.Genres.Add(new Models.Genre("Classical"));
             //context.Genres.Add(new Models.Genre("religious/spirtual"));
             //context.Genres.Add(new Models.Genre("Cultural"));
-
+            //Polka
             //context.SaveChanges();
             //_context = context;
 
@@ -54,7 +54,7 @@ namespace FindABand.Controllers
             //context.Instruments.Add(new Models.Instrument("Clarinet"));
             //context.Instruments.Add(new Models.Instrument("Flute"));
             //context.Instruments.Add(new Models.Instrument("Voice (Vocalist)"));
-
+            //Accordion
             //context.SaveChanges();
         }
 

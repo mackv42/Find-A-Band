@@ -26,6 +26,20 @@ namespace FindABand.Controllers
             _context = context;
         }
 
+        private bool PlaysInstrument(UserAccount userAccount, int instrumentId)
+        {
+            var instruments = _context.TalentByInstruments.Where(x => x.UserId == userAccount.UserId);
+            foreach(var instrument in instruments)
+            {
+                if(instrument.InstrumentId == instrumentId)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         // GET: UserAccount
         public ActionResult Index()
         {
@@ -38,6 +52,17 @@ namespace FindABand.Controllers
             var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
             var UserList = await UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 30);
             return View(UserList);
+        }
+
+
+        //
+        public async Task<ActionResult> SearchByInstrument(int instrumentId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
+            var InDistance = await UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 30);
+            var UserList = InDistance.Where(x => PlaysInstrument(x, instrumentId)).ToList();
+            return View("Find", UserList);
         }
 
         // GET: UserAccount/Details/5
