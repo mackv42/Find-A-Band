@@ -48,7 +48,8 @@ namespace FindABand.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            Band band = _context.Bands.Where(x => x.BandId == id).FirstOrDefault();
+            return View(band);
         }
 
        

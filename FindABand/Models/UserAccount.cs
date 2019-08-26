@@ -27,5 +27,7 @@ namespace FindABand.Models
         public string Address { get; set; }
         [NotMapped]
         public List<TalentByInstrument> instrumentsPlayed { get; set; }
+        [NotMapped]
+        public List<Song> Songs { get; set; }
     }
 }

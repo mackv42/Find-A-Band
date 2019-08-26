@@ -68,7 +68,10 @@ namespace FindABand.Controllers
         // GET: UserAccount/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            UserAccount user = _context.UserAccounts.Where(x => x.ProfileId == id).FirstOrDefault();
+            user.instrumentsPlayed = _context.TalentByInstruments.Where(x => x.UserId == user.UserId).ToList();
+            user.Songs = _context.Songs.Where(x => x.UserId == user.UserId).ToList();
+            return View(user);
         }
 
         public ActionResult MyDetails()
