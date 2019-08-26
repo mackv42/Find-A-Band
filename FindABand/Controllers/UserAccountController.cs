@@ -1,21 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using FindABand.Data;
+using FindABand.LocationUtils;
 using FindABand.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FindABand.Controllers
 {
     public class UserAccountController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        private static HttpClient client;
         public UserAccountController(ApplicationDbContext context)
         {
+            client = new HttpClient();
             _context = context;
         }
 
@@ -31,6 +36,17 @@ namespace FindABand.Controllers
             return View();
         }
 
+        public ActionResult MyDetails()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
+            var instrumentsPlayed = _context.TalentByInstruments.Where(x => x.UserId == userId).ToList();
+            userAccount.instrumentsPlayed = instrumentsPlayed;
+
+
+            return View(userAccount);
+        }
+
         // GET: UserAccount/Create
         public ActionResult Create()
         {
@@ -40,7 +56,7 @@ namespace FindABand.Controllers
         // POST: UserAccount/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserAccount account)
+        public async Task<ActionResult> Create(UserAccount account)
         {
             var addAccount = new UserAccount();
             addAccount.FirstName = account.FirstName;
@@ -49,6 +65,13 @@ namespace FindABand.Controllers
             addAccount.City = account.City;
             addAccount.State = account.State;
             addAccount.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var result = await client.GetStringAsync($"https://maps.googleapis.com/maps/api/geocode/json?address={addAccount.City}+{addAccount.State}&key={GoogleMapsApiKey.Token}");
+            var data = JsonConvert.DeserializeObject<JObject>(result);
+            double lat = (double)data["results"][0]["geometry"]["location"]["lat"];
+            double lon = (double)data["results"][0]["geometry"]["location"]["lng"];
+            addAccount.Latitude = lat;
+            addAccount.Longitude = lon;
+
             try
             {
                 _context.UserAccounts.Add(addAccount);

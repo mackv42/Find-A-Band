@@ -16,13 +16,15 @@ function getInstrumentList() {
                     instruments[j].innerHTML += "<option value=" + data[i].instrumentId + ">" + data[i].name + "</option>"
                 }
             }
+
+            //var arr = instrumentList.filter(x => x.id == id);
+            var ins = document.getElementsByClassName("instrument");
+            for (let i = 0; i < ins.length; i++) {
+                var id = ins[i].innerHTML;
+                ins[i].innerHTML = instrumentList.filter(x => x.instrumentId == id)[0].name;
+
+            }
         }
     });
 }
 getInstrumentList();
-function getInstrument(id) {
-    //console.log(genreList + "genres here");
-
-    var arr = instrumentList.filter(x => x.id == id);
-    return arr[0].name;
-}

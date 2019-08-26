@@ -7,6 +7,6 @@ namespace FindABand.LocationUtils
 {
     public static class GoogleMapsApiKey
     {
-        public static string Token { get => "AIzaSyBJI2go_Ooa47HozynHbq9LNm-qqP-rvz0"; }
+        public static string Token { get => "AIzaSyBcwWMcJNZrBLaqQMBogJQgKcLgdfp7eH0"; }
     }
 }

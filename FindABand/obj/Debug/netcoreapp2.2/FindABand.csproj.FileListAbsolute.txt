@@ -35,3 +35,5 @@ C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\TalentByInstrument\Create.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Song\List.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Band\Create.g.cshtml.cs
+C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Band\MyDetails.g.cshtml.cs
+C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\MyDetails.g.cshtml.cs
