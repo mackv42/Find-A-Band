@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using FindABand.Data;
 using FindABand.LocationUtils;
 using FindABand.Models;
+using FindABand.ViewModels;
 using LiveTunes.MVC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -46,10 +47,29 @@ namespace FindABand.Controllers
             return View(MyBand);
         }
 
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
+            var user = await _context.UserAccounts.Where(x => x.ProfileId == id).FirstOrDefaultAsync();
             Band band = _context.Bands.Where(x => x.BandId == id).FirstOrDefault();
-            return View(band);
+            band.Songs = await _context.BandSongSamples.Where(x => x.UserId == user.UserId).ToListAsync();
+            BandDetailsViewModel model = new BandDetailsViewModel();
+
+            model.band = band;
+            var loggedIn = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = _context.UserAccounts.Where(x => x.UserId == loggedIn).FirstOrDefault().ProfileId;
+            var requests = _context.Invites.Where(x => x.RecipientId == userId).ToList();
+            int? requestId = null;
+            foreach( var request in requests)
+            {
+                if(request.SenderId == band.BandId)
+                {
+                    requestId = request.Id;
+                    break;
+                }
+            }
+
+            model.inviteId = requestId;
+            return View(model);
         }
 
        

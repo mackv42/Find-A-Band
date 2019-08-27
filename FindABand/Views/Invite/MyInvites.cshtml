@@ -1,0 +1,28 @@
+﻿@model IEnumerable<FindABand.Models.Invite>
+
+@{
+    ViewData["Title"] = "MyInvites";
+}
+
+<h1>My Invites</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                Invitation to Join @Html.DisplayFor(modelItem => item.Sender.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                <a href="/band/details/?id=@item.SenderId">See Details</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

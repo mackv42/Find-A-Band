@@ -18,12 +18,13 @@
                 <input asp-for="Message" type="text" class="form-control" />
                 <span asp-validation-for="Message" class="text-danger"></span>
             </div>
-            @*<div class="form-group">
-                <input hidden="@Model.Recipient" style="display: none;" asp-for="Recipient" value="@Model.Recipient" />
-            </div>*@
             <div class="form-group">
-            <input asp-for="Recipient" value="@Model.Recipient" type="hidden" class="form-control" />
+                <input id="RecipientId"
+                       name="RecipientId"
+                       type="hidden"
+                       value="@Model.RecipientId" />
             </div>
+            
             <div class="form-group">
                 <input type="submit" value="Send" class="btn btn-primary" />
             </div>

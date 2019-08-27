@@ -29,28 +29,29 @@ namespace FindABand.Controllers
         // GET: Invite/Create
         public ActionResult Create(int userId)
         {
-            var user = _context.UserAccounts.Where(x => x.ProfileId == userId);
+            var user = _context.UserAccounts.Where(x => x.ProfileId == userId).FirstOrDefault();
             Invite invite = new Invite();
-            invite.Recipient = userId;
+            invite.RecipientId = userId;
+            invite.Recipient = user;
             return View(invite);
         }
 
         // POST: Invite/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Invite invite)
+        public ActionResult Create(Invite invite)
         {
             var addInvite = new Invite();
             addInvite.Message = invite.Message;
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
             addInvite.SenderId = user;
-            addInvite.Recipient = invite.Recipient;
+            addInvite.RecipientId = invite.RecipientId;
             
             invite.SenderId = user;
             //invite.Recipient = (int)ViewData["userId"];
-            await _context.Invites.AddAsync(addInvite);
-            await _context.SaveChangesAsync();
+            _context.Invites.Add(addInvite);
+            _context.SaveChanges();
             try
             {
                 // TODO: Add insert logic here
@@ -67,7 +68,11 @@ namespace FindABand.Controllers
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
-            var invites = await _context.Invites.Where(x => x.Recipient == user).ToListAsync();
+            var invites = await _context.Invites.Where(x => x.RecipientId == user).ToListAsync();
+            foreach( var i in invites )
+            {
+                i.Sender = await _context.Bands.Where(x => x.BandId == i.SenderId).FirstOrDefaultAsync();
+            }
             return View(invites);
         }
     }

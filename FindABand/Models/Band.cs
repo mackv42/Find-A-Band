@@ -25,5 +25,8 @@ namespace FindABand.Models
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
+
+        [NotMapped]
+        public List<BandSongSample> Songs { get; set; }
     }
 }
