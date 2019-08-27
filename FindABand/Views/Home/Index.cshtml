@@ -1,18 +1,22 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script>
+        var instrumentDropdownVal = 0;
+</script>
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    <select class="genres">
-    </select>
-    <select class="instruments"></select>
+    <form asp-action="UserAccount/Find">
+        <select class="genres">
+        </select>
+        <p>Find Musicians Near Me the Play <select class="instruments"></select> <a id="searchForMusician" href="">Go</a></p>
+     </form>
 </div>
 <script src="~/js/Genres.js">
 
 </script>
+
 
 <script src="~/js/Instruments.js"></script>

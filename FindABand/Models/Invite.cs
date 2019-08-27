@@ -8,12 +8,15 @@ namespace FindABand.Models
 {
     public class Invite
     {
-        [Key]
-        public int Id { get; set; }
-        //band that sent invite
         public int SenderId { get; set; }
         //Musician that recieved invite
         public int Recipient { get; set; }
+        //band that sent invite
         public string Message { get; set; }
+
+        [Key]
+        public int Id { get; set; }
+
+
     }
 }
