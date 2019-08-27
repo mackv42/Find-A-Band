@@ -7,6 +7,7 @@ using FindABand.Data;
 using FindABand.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FindABand.Controllers
 {
@@ -21,12 +22,6 @@ namespace FindABand.Controllers
 
             // GET: Invite
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: Invite/Details/5
-        public ActionResult Details(int id)
         {
             return View();
         }
@@ -68,50 +63,12 @@ namespace FindABand.Controllers
             }
         }
 
-        // GET: Invite/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> MyInvites()
         {
-            return View();
-        }
-
-        // POST: Invite/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Invite/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Invite/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
+            var invites = await _context.Invites.Where(x => x.Recipient == user).ToListAsync();
+            return View(invites);
         }
     }
 }

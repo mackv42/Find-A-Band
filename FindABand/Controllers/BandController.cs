@@ -80,8 +80,6 @@ namespace FindABand.Controllers
 
             try
             {
-               
-
                 return RedirectToAction("Create", "BandSongSample");
             }
             catch
@@ -90,49 +88,5 @@ namespace FindABand.Controllers
             }
         }
 
-        
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Band/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Band/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

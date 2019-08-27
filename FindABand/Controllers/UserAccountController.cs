@@ -124,29 +124,6 @@ namespace FindABand.Controllers
             }
         }
 
-        // GET: UserAccount/Edit/5
-        public ActionResult Edit()
-        {
-            return View();
-        }
-
-        // POST: UserAccount/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(UserAccount userAccount)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
         public async Task<List<UserAccount>> UsersInDistance(Coordinates coordinates, double distance)
         {
             return await _context.UserAccounts.Where(x => CoordinatesDistanceExtensions.DistanceTo(coordinates, new Coordinates(x.Latitude, x.Longitude)) < distance).ToListAsync();
