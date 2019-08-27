@@ -21,42 +21,51 @@ namespace FindABand.Controllers
         }
 
         // GET: TalentByInstrument/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+            InstrumentViewModel m = new InstrumentViewModel();
+            var instruments = _context.TalentByInstruments.Where(x => x.UserId == userId).ToList();
+            foreach( var i in instruments)
+            {
+                m.PlayedInstruments.Add(_context.Instruments.Where(x => x.InstrumentId == i.InstrumentId).FirstOrDefault());
+            }
+            return View(m);
         }
 
         // POST: TalentByInstrument/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(InstrumentViewModel InstrumentIds)
+        public async Task<ActionResult> Create(InstrumentViewModel InstrumentData)
         {
             var talentByInstrument1 = new TalentByInstrument();
-            var talentByInstrument2 = new TalentByInstrument();
-            var talentByInstrument3 = new TalentByInstrument();
             string UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             talentByInstrument1.UserId = UserId;
-            talentByInstrument2.UserId = UserId;
-            talentByInstrument3.UserId = UserId;
-            talentByInstrument1.InstrumentId = InstrumentIds.InstrumentId1;
-            talentByInstrument2.InstrumentId = InstrumentIds.InstrumentId2;
-            talentByInstrument3.InstrumentId = InstrumentIds.InstrumentId3;
+            talentByInstrument1.InstrumentId = InstrumentData.CreatedInstrument;
 
 
             _context.TalentByInstruments.Add(talentByInstrument1);
-            _context.TalentByInstruments.Add(talentByInstrument2);
-            _context.TalentByInstruments.Add(talentByInstrument3);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             try
             {
                 // TODO: Add insert logic here
                 
-                return RedirectToAction("Create", "Song");
+                return RedirectToAction("Create", "TalentByInstrument");
             }
             catch
             {
                 return View();
             }
+        }
+
+        public async Task<ActionResult> Delete(int instrumentId)
+        {
+            string UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            TalentByInstrument delete = _context.TalentByInstruments.Where(x => x.UserId == UserId).FirstOrDefault();
+            _context.TalentByInstruments.Remove(delete);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Create", "TalentByInstrument");
         }
     }
 }

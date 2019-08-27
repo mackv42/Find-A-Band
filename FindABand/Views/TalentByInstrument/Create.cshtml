@@ -9,25 +9,32 @@
 
 <h4>What Instruments Can you play?</h4>
 <hr />
+
+@foreach (var x in Model.PlayedInstruments)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <div>
+                @x.Name
+            </div>
+            <div>
+                <a href="/TalentByInstrument/Delete?instrumentId="@x.InstrumentId>Delete</a>
+            </div>
+        </div>
+    </div>
+    <hr/>
+}
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="InstrumentId1" class="control-label"></label>
-                <select asp-for="InstrumentId1" class="instruments"></select>
-                <span asp-validation-for="InstrumentId1" class="text-danger"></span>
+                <label asp-for="CreatedInstrument" class="control-label"></label>
+                <select asp-for="CreatedInstrument" class="instruments"></select>
+                <span asp-validation-for="CreatedInstrument" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="InstrumentId2" class="control-label"></label>
-                <select asp-for="InstrumentId2" class="instruments"></select>
-                <span asp-validation-for="InstrumentId2" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InstrumentId3" class="control-label"></label>
-                <select asp-for="InstrumentId3" class="instruments"></select>
-                <span asp-validation-for="InstrumentId3" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -35,7 +42,7 @@
     </div>
 </div>
 
-
+<a href="/Song/Create">Upload Songs</a>
 <script src="~/js/Instruments.js"></script>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
