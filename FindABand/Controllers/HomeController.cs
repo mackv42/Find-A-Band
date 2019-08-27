@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FindABand.Models;
 using FindABand.Data;
+using System.Security.Claims;
 
 namespace FindABand.Controllers
 {
@@ -60,7 +61,18 @@ namespace FindABand.Controllers
 
         public IActionResult Index()
         {
-            
+            var loggedIn = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (String.IsNullOrEmpty(loggedIn))
+            {
+                return View();
+            }
+
+            var userProfile = _context.UserAccounts.Where(x => x.UserId == loggedIn).FirstOrDefault();
+            if(userProfile == null)
+            {
+                return RedirectToAction("Create", "UserAccount");
+            }
+
             return View();
         }
 
