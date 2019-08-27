@@ -82,7 +82,7 @@ namespace FindABand.Controllers
             {
                
 
-                return RedirectToAction("MyDetails", "Band");
+                return RedirectToAction("Create", "BandSongSample");
             }
             catch
             {
