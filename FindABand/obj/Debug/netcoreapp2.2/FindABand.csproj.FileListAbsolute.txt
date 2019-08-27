@@ -45,3 +45,4 @@ C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Invite\SentInvites.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Invite\MyInvites.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Band\Details.g.cshtml.cs
+C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Invite\Details.g.cshtml.cs

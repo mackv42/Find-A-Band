@@ -64,6 +64,27 @@ namespace FindABand.Controllers
             }
         }
 
+        public async Task<ActionResult> Details(int id)
+        {
+            var invite = await _context.Invites.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return View(invite);
+        }
+
+        public async Task<ActionResult> Decline(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
+            var invite = await _context.Invites.Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (invite.RecipientId == user)
+            {
+                _context.Invites.Remove(invite);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("myinvites", "invite");
+        }
+
         public async Task<ActionResult> MyInvites()
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);

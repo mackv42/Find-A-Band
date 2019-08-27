@@ -1,0 +1,27 @@
+﻿@model FindABand.Models.Invite
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Invite</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+        <dd>
+            <h4><a href="/AcceptedInvite/create?id=@Model.Id">Accept</a> &nbsp;&nbsp; <a href="/invite/decline?id=@Model.Id">Decline</a></h4>
+            <h4></h4>
+        </dd>
+    </dl>
+</div>
+<div>
+   
+</div>
