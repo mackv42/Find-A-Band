@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using FindABand.Data;
 using FindABand.LocationUtils;
 using FindABand.Models;
+using FindABand.ViewModels;
 using LiveTunes.MVC.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,20 +27,6 @@ namespace FindABand.Controllers
             _context = context;
         }
 
-        private bool PlaysInstrument(UserAccount userAccount, int instrumentId)
-        {
-            var instruments = _context.TalentByInstruments.Where(x => x.UserId == userAccount.UserId);
-            foreach(var instrument in instruments)
-            {
-                if(instrument.InstrumentId == instrumentId)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         // GET: UserAccount
         public ActionResult Index()
         {
@@ -50,7 +37,7 @@ namespace FindABand.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
-            var UserList = await UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 30);
+            var UserList = UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 30);
             return View(UserList);
         }
 
@@ -60,7 +47,7 @@ namespace FindABand.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
-            var InDistance = await UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 30);
+            var InDistance = UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 30);
             var UserList = InDistance.Where(x => PlaysInstrument(x, instrumentId)).ToList();
             return View("Find", UserList);
         }
@@ -124,9 +111,40 @@ namespace FindABand.Controllers
             }
         }
 
-        public async Task<List<UserAccount>> UsersInDistance(Coordinates coordinates, double distance)
+        private bool PlaysInstrument(UserAccount userAccount, int instrumentId)
         {
-            return await _context.UserAccounts.Where(x => CoordinatesDistanceExtensions.DistanceTo(coordinates, new Coordinates(x.Latitude, x.Longitude)) < distance).ToListAsync();
+            var instruments = _context.TalentByInstruments.Where(x => x.UserId == userAccount.UserId);
+            foreach (var instrument in instruments)
+            {
+                if (instrument.InstrumentId == instrumentId)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public IEnumerable<UserAccount> UsersInDistance(Coordinates coordinates, double distance)
+        {
+            return _context.UserAccounts.Where(x => CoordinatesDistanceExtensions.DistanceTo(coordinates, new Coordinates(x.Latitude, x.Longitude)) < distance);
+        }
+
+        public async Task<ActionResult> Search( int SearchQuery )
+        {
+            SearchUserAccountViewModel m = new SearchUserAccountViewModel();
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
+            var users = UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 40);
+            users = users.Where(x => PlaysInstrument(x, SearchQuery));
+            m.userAccounts = users.ToList();
+
+
+
+            m.SearchQuery = SearchQuery;
+            
+            return View(m);
         }
     }
 }
