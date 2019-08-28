@@ -70,6 +70,28 @@ namespace FindABand.Controllers
             return View(invite);
         }
 
+        public async Task<ActionResult> Accept(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
+            var invite = await _context.Invites.Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (invite.RecipientId == user)
+            {
+                AcceptedInvite acceptedInvite = new AcceptedInvite();
+                acceptedInvite.RecipientId = invite.RecipientId;
+                acceptedInvite.SenderId = invite.SenderId;
+                await _context.AcceptedInvites.AddAsync(acceptedInvite);
+                _context.Invites.Remove(invite);
+                await _context.SaveChangesAsync();
+
+                //Which controller should this belong to?
+                return RedirectToAction("Conversation", "Message");
+            }
+
+            return RedirectToAction("myinvites", "invite");
+        }
+
         public async Task<ActionResult> Decline(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

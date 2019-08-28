@@ -21,6 +21,7 @@ namespace FindABand.Data
         public DbSet<TalentByGenre> TalentByGenres { get; set; }
         public DbSet<Invite> Invites { get; set; }
         public DbSet<AcceptedInvite> AcceptedInvites { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
