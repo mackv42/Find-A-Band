@@ -22,6 +22,11 @@ namespace FindABand.Controllers
 
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Upload(List<IFormFile> files)
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -73,7 +78,7 @@ namespace FindABand.Controllers
             await _context.BandSongSamples.AddAsync(addSong);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Create", "Song");
+            return RedirectToAction("Create", "BandSongSample");
         }
     }
 }

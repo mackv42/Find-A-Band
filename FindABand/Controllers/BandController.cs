@@ -32,14 +32,6 @@ namespace FindABand.Controllers
             return View();
         }
 
-
-        public async Task<List<Band>> BandsInDistance(Coordinates coordinates, double distance)
-        {
-            return await _context.Bands.Where(x => CoordinatesDistanceExtensions.DistanceTo(coordinates, new Coordinates(x.Latitude, x.Longitude)) < distance).ToListAsync();
-        }
-
-
-
         public ActionResult MyDetails()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -51,6 +43,7 @@ namespace FindABand.Controllers
         {
             var user = await _context.UserAccounts.Where(x => x.ProfileId == id).FirstOrDefaultAsync();
             Band band = _context.Bands.Where(x => x.BandId == id).FirstOrDefault();
+            band.Songs = new List<BandSongSample>();
             band.Songs = await _context.BandSongSamples.Where(x => x.UserId == user.UserId).ToListAsync();
             BandDetailsViewModel model = new BandDetailsViewModel();
 
@@ -95,6 +88,7 @@ namespace FindABand.Controllers
             double lon = (double)data["results"][0]["geometry"]["location"]["lng"];
             addBand.Latitude = lat;
             addBand.Longitude = lon;
+            addBand.GenreId = band.GenreId;
             _context.Bands.Add(addBand);
             _context.SaveChanges();
 
@@ -108,5 +102,23 @@ namespace FindABand.Controllers
             }
         }
 
+        public async Task<IEnumerable<Band>> BandsInDistance(Coordinates coordinates, double distance)
+        {
+            return await _context.Bands.Where(x => CoordinatesDistanceExtensions.DistanceTo(coordinates, new Coordinates(x.Latitude, x.Longitude)) < distance).ToListAsync();
+        }
+
+        public async Task<ActionResult> Search(int SearchQuery)
+        {
+            SearchBandViewModel m = new SearchBandViewModel();
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
+            var bands = await BandsInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 40);
+            bands = bands.Where(x => x.GenreId == SearchQuery);
+            m.Bands = bands.ToList();
+            m.SearchQuery = SearchQuery;
+
+            return View(m);
+        }
     }
 }
