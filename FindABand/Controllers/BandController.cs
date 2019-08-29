@@ -39,20 +39,20 @@ namespace FindABand.Controllers
             return View(MyBands);
         }
 
-        public async Task<ActionResult> ConnectedBands()
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
-            var invites = _context.AcceptedInvites.Where(x => x.RecipientId == user);
-            var bands = new List<Band>();
+        //public async Task<ActionResult> ConnectedBands()
+        //{
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
+        //    var invites = _context.AcceptedInvites.Where(x => x.RecipientId == user);
+        //    var bands = new List<Band>();
 
-            foreach(var invite in invites)
-            {
-                bands.Add(_context.Bands.Where(x => x.BandId == invite.SenderId).FirstOrDefault());
-            }
+        //    foreach(var invite in invites)
+        //    {
+        //        bands.Add(_context.Bands.Where(x => x.BandId == invite.SenderId).FirstOrDefault());
+        //    }
 
-            return View(bands);
-        }
+        //    return View(bands);
+        //}
 
         public ActionResult MyDetails(int id)
         {
