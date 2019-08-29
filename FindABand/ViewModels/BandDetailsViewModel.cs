@@ -10,6 +10,8 @@ namespace FindABand.ViewModels
     {
         public BandDetailsViewModel()
         {
+            band = new Band();
+            band.Songs = new List<BandSongSample>();
             inviteId = null;
         }
         public Band band { get; set; }

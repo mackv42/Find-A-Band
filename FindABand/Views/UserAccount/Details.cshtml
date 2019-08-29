@@ -1,4 +1,4 @@
-﻿@model FindABand.Models.UserAccount
+﻿@model FindABand.ViewModels.UserAccountDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,32 +11,32 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Account.FirstName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Account.FirstName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Account.LastName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.Account.LastName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
+            @Html.DisplayNameFor(model => model.Account.City)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.City)
+            @Html.DisplayFor(model => model.Account.City)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.State)
+            @Html.DisplayNameFor(model => model.Account.State)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.State)
+            @Html.DisplayFor(model => model.Account.State)
         </dd>
     </dl>
 
-    @foreach (var x in Model.Songs)
+    @foreach (var x in Model.Account.Songs)
     {
         <audio controls>
             <source src="/@x.FileName" type="audio/mpeg">
@@ -48,5 +48,30 @@
     }
 </div>
 <div>
+    <div class="col-md-4">
+        <form action="/invite/create" method="get">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Send Request for</label>
+                <select asp-for="bandId" class="instruments">
+                    @foreach (var band in Model.Bands)
+                    {
+                        <option value="@band.BandId">
+                            @band.Name
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input id="userId"
+                       name="userId"
+                       type="hidden"
+                       value="@Model.Account.ProfileId" />
+            </div>
 
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
 </div>

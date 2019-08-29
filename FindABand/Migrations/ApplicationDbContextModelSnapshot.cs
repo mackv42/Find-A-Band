@@ -71,6 +71,8 @@ namespace FindABand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BandId");
+
                     b.Property<string>("FileName");
 
                     b.Property<int>("GenreId");

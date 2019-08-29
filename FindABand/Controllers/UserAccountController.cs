@@ -55,10 +55,16 @@ namespace FindABand.Controllers
         // GET: UserAccount/Details/5
         public ActionResult Details(int id)
         {
+            UserAccountDetailsViewModel model = new UserAccountDetailsViewModel();
             UserAccount user = _context.UserAccounts.Where(x => x.ProfileId == id).FirstOrDefault();
             user.instrumentsPlayed = _context.TalentByInstruments.Where(x => x.UserId == user.UserId).ToList();
             user.Songs = _context.Songs.Where(x => x.UserId == user.UserId).ToList();
-            return View(user);
+            model.Account = user;
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
+            model.Bands = _context.Bands.Where(x => x.UserId == userId).ToList();
+            return View(model);
         }
 
         public ActionResult MyDetails()

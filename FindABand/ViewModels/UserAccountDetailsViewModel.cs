@@ -12,6 +12,7 @@ namespace FindABand.ViewModels
         {
             Bands = new List<Band>();
         }
+        public int bandId { get; set; }
         public UserAccount Account { get; set; }
         public List<Band> Bands { get; set; }
     }

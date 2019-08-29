@@ -13,7 +13,7 @@ namespace FindABand.Models
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public IdentityUser User { get; set; }
-
+        public int BandId { get; set; }
         [Key]
         public int SongId { get; set; }
 

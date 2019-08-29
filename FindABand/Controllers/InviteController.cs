@@ -29,8 +29,11 @@ namespace FindABand.Controllers
         // GET: Invite/Create
         public ActionResult Create(int bandId, int userId)
         {
+            var sender = _context.Bands.Where(x => x.BandId == bandId).FirstOrDefault();
             var user = _context.UserAccounts.Where(x => x.ProfileId == userId).FirstOrDefault();
             Invite invite = new Invite();
+            invite.SenderId = bandId;
+            invite.Sender = sender;
             invite.RecipientId = userId;
             invite.Recipient = user;
             return View(invite);
@@ -45,7 +48,7 @@ namespace FindABand.Controllers
             addInvite.Message = invite.Message;
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
-            addInvite.SenderId = user;
+            addInvite.SenderId = invite.SenderId;
             addInvite.RecipientId = invite.RecipientId;
             
             invite.SenderId = user;

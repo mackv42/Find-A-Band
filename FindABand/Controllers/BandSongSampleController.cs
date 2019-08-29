@@ -22,12 +22,14 @@ namespace FindABand.Controllers
 
         }
 
-        public ActionResult Create()
+        public ActionResult Create(int bandId)
         {
-            return View();
+            BandSongSample s = new BandSongSample();
+            s.BandId = bandId;
+            return View(s);
         }
 
-        public async Task<IActionResult> Upload(List<IFormFile> files)
+        public async Task<IActionResult> Upload(List<IFormFile> files, int bandId)
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             int userId = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
@@ -75,6 +77,7 @@ namespace FindABand.Controllers
             }
 
             addSong.UserId = id;
+            addSong.BandId = bandId;
             await _context.BandSongSamples.AddAsync(addSong);
             await _context.SaveChangesAsync();
 

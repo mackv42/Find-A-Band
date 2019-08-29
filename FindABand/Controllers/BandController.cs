@@ -117,7 +117,11 @@ namespace FindABand.Controllers
 
             try
             {
-                return RedirectToAction("Create", "BandSongSample");
+                //return RedirectToAction("Create", "BandSongSample");
+                //return View($"BandSongSample/Create?bandId={addBand.BandId}");
+                BandSongSample sample = new BandSongSample();
+                sample.BandId = addBand.BandId;
+                return View("../BandSongSample/Create", sample);
             }
             catch
             {
