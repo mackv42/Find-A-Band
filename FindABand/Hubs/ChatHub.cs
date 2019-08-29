@@ -28,5 +28,10 @@ namespace SignalRChat.Hubs
             //IClientProxy proxy = 
             //await Clients.User("").SendMessage(IClientProxy p);
         }
+
+        public async Task BandSendMessage(string userId1, string userId2, string message)
+        {
+
+        }
     }
 }
