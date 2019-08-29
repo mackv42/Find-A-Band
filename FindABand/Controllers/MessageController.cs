@@ -35,6 +35,11 @@ namespace FindABand.Controllers
 
             return View(m);
         }
+
+        /*public ActionResult BandMessages(int userId, int bandId)
+        {
+
+        }*/
       
     }
 }

@@ -32,7 +32,29 @@ namespace FindABand.Controllers
             return View();
         }
 
-        public ActionResult MyDetails()
+        public async Task<ActionResult> YourBands()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var MyBands = await _context.Bands.Where(x => x.UserId == userId).ToListAsync();
+            return View(MyBands);
+        }
+
+        public async Task<ActionResult> ConnectedBands()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
+            var invites = _context.AcceptedInvites.Where(x => x.RecipientId == user);
+            var bands = new List<Band>();
+
+            foreach(var invite in invites)
+            {
+                bands.Add(_context.Bands.Where(x => x.BandId == invite.SenderId).FirstOrDefault());
+            }
+
+            return View(bands);
+        }
+
+        public ActionResult MyDetails(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var MyBand = _context.Bands.Where(x => x.UserId == userId).FirstOrDefault();
