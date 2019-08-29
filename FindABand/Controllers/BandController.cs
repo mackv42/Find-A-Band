@@ -67,7 +67,14 @@ namespace FindABand.Controllers
             var user = await _context.UserAccounts.Where(x => x.ProfileId == id).FirstOrDefaultAsync();
             Band band = _context.Bands.Where(x => x.BandId == id).FirstOrDefault();
             band.Songs = new List<BandSongSample>();
-            band.Songs = await _context.BandSongSamples.Where(x => x.UserId == user.UserId).ToListAsync();
+           // band.Songs = new List<BandSongSample>();
+            try
+            {
+                band.Songs = await _context.BandSongSamples.Where(x => x.UserId == user.UserId).ToListAsync();
+            } catch( Exception E)
+            {
+
+            }
             BandDetailsViewModel model = new BandDetailsViewModel();
 
             model.band = band;

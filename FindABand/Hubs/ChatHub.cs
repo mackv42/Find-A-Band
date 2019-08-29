@@ -21,7 +21,7 @@ namespace SignalRChat.Hubs
             var m = new Message();
             m.Text = message;
             m.SenderId = user.ProfileId;
-            m.RecipientId = _context.UserAccounts.Where(x => x.UserId == userId2).FirstOrDefault().ProfileId;
+            m.RecipientId = _context.Bands.Where(x => x.UserId == userId2).FirstOrDefault().BandId;
             await _context.Messages.AddAsync(m);
             await _context.SaveChangesAsync();
             await Clients.All.SendAsync("ReceiveMessage", user.FirstName, message);

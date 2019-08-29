@@ -27,13 +27,18 @@ namespace FindABand.Controllers
             var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
             var bandAccount = _context.Bands.Where(x => x.BandId == id).FirstOrDefault();
             var messages = _context.Messages.Where(x => x.SenderId == userAccount.ProfileId || x.RecipientId == userAccount.ProfileId);
-            messages = messages.Where(x => x.SenderId == id || x.RecipientId == id);
+            messages = messages.Where(x => x.SenderId == userAccount.ProfileId && x.RecipientId == id);
             MessageViewModel m = new MessageViewModel();
             m.Messages = messages.ToList();
             m.MyId = userId;
             m.UserId = bandAccount.UserId;
 
             return View(m);
+        }
+
+        public ActionResult BandMessages(int id)
+        {
+            return View();
         }
 
         /*public ActionResult BandMessages(int userId, int bandId)
