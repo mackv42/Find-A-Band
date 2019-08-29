@@ -23,6 +23,8 @@ namespace FindABand.Data
         public DbSet<AcceptedInvite> AcceptedInvites { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<BandMessage> BandMessages { get; set; }
+        public DbSet<RoadieTestQuestion> RoadieTestQuestions { get; set; }
+        public DbSet<TestAnswer> TestAnswers { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
