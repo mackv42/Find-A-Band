@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using FindABand.Data;
+using FindABand.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,8 +28,12 @@ namespace FindABand.Controllers
             var bandAccount = _context.Bands.Where(x => x.BandId == id).FirstOrDefault();
             var messages = _context.Messages.Where(x => x.SenderId == userAccount.ProfileId || x.RecipientId == userAccount.ProfileId);
             messages = messages.Where(x => x.SenderId == id || x.RecipientId == id);
+            MessageViewModel m = new MessageViewModel();
+            m.Messages = messages.ToList();
+            m.MyId = userId;
+            m.UserId = bandAccount.UserId;
 
-            return View(messages);
+            return View(m);
         }
       
     }
