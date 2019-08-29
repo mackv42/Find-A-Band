@@ -27,7 +27,7 @@ namespace FindABand.Controllers
         }
 
         // GET: Invite/Create
-        public ActionResult Create(int userId)
+        public ActionResult Create(int bandId, int userId)
         {
             var user = _context.UserAccounts.Where(x => x.ProfileId == userId).FirstOrDefault();
             Invite invite = new Invite();
