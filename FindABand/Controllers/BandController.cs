@@ -57,7 +57,8 @@ namespace FindABand.Controllers
         public ActionResult MyDetails(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var MyBand = _context.Bands.Where(x => x.UserId == userId).FirstOrDefault();
+            var MyBands = _context.Bands.Where(x => x.UserId == userId);
+            var MyBand = MyBands.Where(x => x.BandId == id).FirstOrDefault();
             return View(MyBand);
         }
 
