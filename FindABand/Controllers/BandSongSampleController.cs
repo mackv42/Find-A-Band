@@ -8,6 +8,7 @@ using FindABand.Data;
 using FindABand.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FindABand.Controllers
 {
@@ -19,6 +20,19 @@ namespace FindABand.Controllers
         public BandSongSampleController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<ActionResult> Delete(int songSampleId)
+        {
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var song = await _context.BandSongSamples.Where(x => x.SongId == songSampleId).FirstOrDefaultAsync();
+
+            if (song.UserId == id) {
+                _context.Remove(song);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("YourBands", "Band");
         }
 
         public ActionResult Create(int bandId)
