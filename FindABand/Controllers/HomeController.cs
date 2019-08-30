@@ -37,6 +37,14 @@ namespace FindABand.Controllers
             //context.Genres.Add(new Models.Genre("religious/spirtual"));
             //context.Genres.Add(new Models.Genre("Cultural"));
             //Polka
+            //context.Instruments.Add(new Models.Instrument("Accordion"));
+            //context.Genres.Add(new Models.Genre("Polka"));
+            //context.SaveChanges();
+
+            //context.RoadieTestQuestions.Add(new RoadieTestQuestion("Do you Travel?"));
+            //context.RoadieTestQuestions.Add( new RoadieTestQuestion("Do you Like to Party?"));
+            //context.RoadieTestQuestions.Add(new RoadieTestQuestion("Do you play music Fast?"));
+            //context.RoadieTestQuestions.Add(new RoadieTestQuestion("Do you play music Slow?"));
             //context.SaveChanges();
             //_context = context;
 

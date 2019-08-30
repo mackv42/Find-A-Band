@@ -8,6 +8,11 @@ namespace FindABand.Models
 {
     public class RoadieTestQuestion
     {
+        public RoadieTestQuestion(string question)
+        {
+            Question = question;
+        }
+
         [Key]
         public int QuestionId { get; set; }
         public string Question { get; set; }
