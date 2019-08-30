@@ -26,8 +26,28 @@ namespace FindABand.Controllers
             return View();
         }
 
+        public ActionResult UserCreate(int? bandId, int? userId)
+        {
+            if(bandId != null)
+            {
+
+            } else if( userId != null)
+            {
+
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UserCreate(Invite invite)
+        {
+            return View();
+        }
+
         // GET: Invite/Create
-        public ActionResult Create(int bandId, int userId)
+        public ActionResult BandCreate(int bandId, int userId)
         {
             var sender = _context.Bands.Where(x => x.BandId == bandId).FirstOrDefault();
             var user = _context.UserAccounts.Where(x => x.ProfileId == userId).FirstOrDefault();
@@ -39,10 +59,12 @@ namespace FindABand.Controllers
             return View(invite);
         }
 
+
+        
         // POST: Invite/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Invite invite)
+        public ActionResult BandCreate(Invite invite)
         {
             var addInvite = new Invite();
             addInvite.Message = invite.Message;
@@ -117,7 +139,10 @@ namespace FindABand.Controllers
             var invites = await _context.Invites.Where(x => x.RecipientId == user).ToListAsync();
             foreach( var i in invites )
             {
-                i.BandSender = await _context.Bands.Where(x => x.BandId == i.BandSenderId).FirstOrDefaultAsync();
+                if (i.BandSenderId != null)
+                {
+                    i.BandSender = await _context.Bands.Where(x => x.BandId == i.BandSenderId).FirstOrDefaultAsync();
+                }
             }
             return View(invites);
         }

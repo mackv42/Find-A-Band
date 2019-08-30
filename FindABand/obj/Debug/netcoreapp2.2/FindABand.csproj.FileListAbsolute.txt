@@ -31,7 +31,6 @@ C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\FindAB
 C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\FindABand.pdb
 C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\FindABand.csproj.CopyComplete
 C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Song\Create.g.cshtml.cs
-C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\Create.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\TalentByInstrument\Create.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Song\List.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Band\Create.g.cshtml.cs
@@ -40,7 +39,6 @@ C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Band\Find.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\Find.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\Details.g.cshtml.cs
-C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Invite\Create.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\BandSongSample\Create.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Invite\SentInvites.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Invite\MyInvites.g.cshtml.cs
@@ -55,3 +53,5 @@ C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\SimilarUsers.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\Edit.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Band\Edit.g.cshtml.cs
+C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Invite\BandCreate.g.cshtml.cs
+C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\Create.g.cshtml.cs

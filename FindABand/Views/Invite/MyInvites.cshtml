@@ -12,6 +12,8 @@
 <table class="table">
     <tbody>
 @foreach (var item in Model) {
+    if (item.BandSenderId != null)
+    {
         <tr>
             <td>
                 Invitation to Join @Html.DisplayFor(modelItem => item.BandSender.Name)
@@ -23,6 +25,29 @@
                 <a href="/band/details/?id=@item.SenderId">See Details</a>
             </td>
         </tr>
+    }
 }
+    </tbody>
+</table>
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.BandSenderId == null)
+            {
+                <tr>
+                    <td>
+                        Invitation to Connect With @Html.DisplayFor(modelItem => item.UserSender.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Message)
+                    </td>
+                    <td>
+                        <a href="/band/details/?id=@item.SenderId">See Details</a>
+                    </td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
