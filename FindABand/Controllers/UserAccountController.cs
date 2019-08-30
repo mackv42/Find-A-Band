@@ -96,7 +96,7 @@ namespace FindABand.Controllers
             addAccount.City = account.City;
             addAccount.State = account.State;
             addAccount.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var result = await client.GetStringAsync($"https://maps.googleapis.com/maps/api/geocode/json?address={addAccount.City}+{addAccount.State}&key={GoogleMapsApiKey.Token}");
+            var result = await client.GetStringAsync($"https://maps.googleapis.com/maps/api/geocode/json?address={addAccount.Address}+{addAccount.City}+{addAccount.State}&key={GoogleMapsApiKey.Token}");
             var data = JsonConvert.DeserializeObject<JObject>(result);
             double lat = (double)data["results"][0]["geometry"]["location"]["lat"];
             double lon = (double)data["results"][0]["geometry"]["location"]["lng"];

@@ -28,7 +28,6 @@ namespace FindABand.Controllers
             model.Answers = new List<double>(new double[model.Questions.Count()]);
             return View(model);
         }
-        
 
         public static double Compare(List<TestAnswer> answerList1, List<TestAnswer> answerList2)
         {
@@ -41,21 +40,26 @@ namespace FindABand.Controllers
             return result;
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult TakeTest(List<double> Answers)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var testAnswers = new List<TestAnswer>();
+            var Questions = _context.RoadieTestQuestions.Where(x => true).ToList();
+            int i = 0;
+
             foreach (var answer in Answers)
             {
                 var ans = new TestAnswer();
                 ans.Answer = answer;
                 ans.UserId = userId;
+                ans.QuestionId = Questions[i++].QuestionId;
                 _context.TestAnswers.Add(ans);
             }
 
+            _context.SaveChanges();
+            //return View();
             return RedirectToAction("SentRequests", "BandInvite");
         }
     }

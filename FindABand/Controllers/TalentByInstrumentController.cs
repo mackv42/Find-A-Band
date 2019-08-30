@@ -44,7 +44,7 @@ namespace FindABand.Controllers
             talentByInstrument1.UserId = UserId;
             talentByInstrument1.InstrumentId = InstrumentData.CreatedInstrument;
 
-
+            
             _context.TalentByInstruments.Add(talentByInstrument1);
             await _context.SaveChangesAsync();
             try
