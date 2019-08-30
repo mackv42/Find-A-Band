@@ -32,14 +32,18 @@
                 <span asp-validation-for="State" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div>
                 <label class="control-label">Genre Of music</label>
-                <select asp-for="GenreId" class="genres" >
-
+                <select asp-for="GenreId" class="genres">
                 </select>
             </div>
             <div class="form-group">

@@ -129,6 +129,7 @@ namespace FindABand.Controllers
             Band addBand = new Band();
             addBand.City = band.City;
             addBand.State = band.State;
+            addBand.Address = band.Address;
             addBand.Name = band.Name;
             addBand.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             addBand.Description = band.Description;
