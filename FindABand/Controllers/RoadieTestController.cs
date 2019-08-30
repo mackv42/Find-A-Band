@@ -28,6 +28,18 @@ namespace FindABand.Controllers
             model.Answers = new List<double>(new double[model.Questions.Count()]);
             return View(model);
         }
+        
+
+        public double Compare(List<TestAnswer> answerList1, List<TestAnswer> answerList2)
+        {
+            double result = 0;
+            for( int i=0; i<answerList1.Count(); i++)
+            {
+                result += Math.Abs(answerList1[i].Answer - answerList2[i].Answer);
+            }
+
+            return result;
+        }
 
 
         [HttpPost]
