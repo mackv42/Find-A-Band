@@ -30,7 +30,7 @@ namespace FindABand.Controllers
         }
         
 
-        public double Compare(List<TestAnswer> answerList1, List<TestAnswer> answerList2)
+        public static double Compare(List<TestAnswer> answerList1, List<TestAnswer> answerList2)
         {
             double result = 0;
             for( int i=0; i<answerList1.Count(); i++)

@@ -135,6 +135,29 @@ namespace FindABand.Controllers
         {
             return _context.UserAccounts.Where(x => CoordinatesDistanceExtensions.DistanceTo(coordinates, new Coordinates(x.Latitude, x.Longitude)) < distance);
         }
+        
+
+        public ActionResult SimilarUsers()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
+            var userAccountRoadieTest = _context.TestAnswers.Where(x => x.UserId == userId).ToList();
+            
+            if(userAccountRoadieTest == null)
+            {
+                return RedirectToAction("TakeTest", "RoadieTest");
+            }
+            var accountsInDistance = UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 30);
+
+            List<UserAccount> similarAccounts = new List<UserAccount>();
+            foreach ( var account in accountsInDistance )
+            {
+                var testResults = _context.TestAnswers.Where(x => x.UserId == account.UserId).ToList();
+                double similarity = RoadieTestController.Compare(userAccountRoadieTest, testResults);
+            }
+            //List<UserAccount> similarAccounts = accountsInDistance.Where(x => );
+            return View(similarAccounts);
+        }
 
         public async Task<ActionResult> Search( int SearchQuery )
         {
