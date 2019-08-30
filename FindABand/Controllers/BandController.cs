@@ -44,6 +44,7 @@ namespace FindABand.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var MyBands = _context.Bands.Where(x => x.UserId == userId);
             var MyBand = MyBands.Where(x => x.BandId == id).FirstOrDefault();
+            MyBand.GenreName = _context.Genres.Where(x => x.GenreId == MyBand.GenreId).FirstOrDefault().Name;
             return View(MyBand);
         }
 
@@ -82,6 +83,7 @@ namespace FindABand.Controllers
             var user = await _context.UserAccounts.Where(x => x.ProfileId == id).FirstOrDefaultAsync();
             Band band = _context.Bands.Where(x => x.BandId == id).FirstOrDefault();
             band.Songs = new List<BandSongSample>();
+            band.GenreName = _context.Genres.Where(x => x.GenreId == band.GenreId).FirstOrDefault().Name;
            // band.Songs = new List<BandSongSample>();
             try
             {
