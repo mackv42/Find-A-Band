@@ -33,9 +33,9 @@ namespace FindABand.Controllers
             var user = _context.UserAccounts.Where(x => x.ProfileId == userId).FirstOrDefault();
             Invite invite = new Invite();
             invite.SenderId = bandId;
-            invite.Sender = sender;
+            //invite.Sender = sender;
             invite.RecipientId = userId;
-            invite.Recipient = user;
+            //invite.Recipient = user;
             return View(invite);
         }
 
@@ -117,7 +117,7 @@ namespace FindABand.Controllers
             var invites = await _context.Invites.Where(x => x.RecipientId == user).ToListAsync();
             foreach( var i in invites )
             {
-                i.Sender = await _context.Bands.Where(x => x.BandId == i.SenderId).FirstOrDefaultAsync();
+                i.BandSender = await _context.Bands.Where(x => x.BandId == i.BandSenderId).FirstOrDefaultAsync();
             }
             return View(invites);
         }

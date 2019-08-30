@@ -4,19 +4,12 @@
     ViewData["Title"] = "List";
 }
 
-<h1>List</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<h1>Your Invites
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.SenderId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Recipient)
+                @Html.DisplayNameFor(model => model.BandRecipient)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Message)
@@ -31,10 +24,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.SenderId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Recipient)
+                @Html.DisplayFor(modelItem => item.BandRecipient)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Message)

@@ -135,6 +135,8 @@ namespace FindABand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BandSenderId");
+
                     b.Property<string>("Message");
 
                     b.Property<int>("RecipientId");
@@ -152,9 +154,13 @@ namespace FindABand.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("RecipientId");
+                    b.Property<int?>("RecipientBandId");
 
-                    b.Property<int>("SenderId");
+                    b.Property<string>("RecipientId");
+
+                    b.Property<int?>("SenderBandId");
+
+                    b.Property<string>("SenderId");
 
                     b.Property<string>("Text");
 

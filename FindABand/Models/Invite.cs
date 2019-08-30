@@ -12,13 +12,20 @@ namespace FindABand.Models
         //band that sent invite
         public int SenderId { get; set; }
         [NotMapped]
-        public Band Sender { get; set; }
-        
+        public UserAccount UserSender { get; set; }
+        public int? BandSenderId { get; set; }
+        [NotMapped]
+        public Band BandSender { get; set; }
         //Musician that recieved invite
 
         public int RecipientId { get; set; }
+
         [NotMapped]
-        public UserAccount Recipient { get; set; }
+        public int? BandRecipientId { get; set; }
+        [NotMapped]
+        public Band BandRecipient { get; set; }
+        [NotMapped]
+        public UserAccount UserRecipient { get; set; }
 
         public string Message { get; set; }
 

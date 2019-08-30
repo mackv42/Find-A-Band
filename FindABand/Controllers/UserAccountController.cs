@@ -164,7 +164,6 @@ namespace FindABand.Controllers
         {
             return _context.UserAccounts.Where(x => CoordinatesDistanceExtensions.DistanceTo(coordinates, new Coordinates(x.Latitude, x.Longitude)) < distance);
         }
-        
 
         public ActionResult SimilarUsers()
         {
@@ -175,7 +174,7 @@ namespace FindABand.Controllers
             if(userAccountRoadieTest == null)
             {
                 return RedirectToAction("TakeTest", "RoadieTest");
-            }
+            } 
             var accountsInDistance = UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 30);
 
             List<UserAccount> similarAccounts = new List<UserAccount>();

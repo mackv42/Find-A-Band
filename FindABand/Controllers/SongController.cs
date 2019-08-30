@@ -61,31 +61,15 @@ namespace FindABand.Controllers
 
             if (HttpContext.Request.Form.Files != null)
             {
-                //var fileName = string.Empty;
                 string PathDB = string.Empty;
-
-                //var files = HttpContext.Request.Form.Files;
 
                 foreach (var file in files)
                 {
                     if (file.Length > 0)
                     {
-                        //Getting FileName
-
-
-                        //Assigning Unique Filename (Guid)
-                        //var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                        //Getting file Extension
                         var FileExtension = Path.GetExtension(file.FileName);
 
-                        // concating  FileName + FileExtension
                         newFileName = userId.ToString() + "_" + file.FileName;
-
-                        // Combines two strings into a path.
-
-
-                        // if you want to store path of folder in database
                         PathDB = "wwwroot/Songs/" + newFileName;
 
                         addSong.FileName = "Songs/" + newFileName;
