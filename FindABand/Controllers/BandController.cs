@@ -45,6 +45,9 @@ namespace FindABand.Controllers
             var MyBands = _context.Bands.Where(x => x.UserId == userId);
             var MyBand = MyBands.Where(x => x.BandId == id).FirstOrDefault();
             MyBand.GenreName = _context.Genres.Where(x => x.GenreId == MyBand.GenreId).FirstOrDefault().Name;
+            MyBand.Songs = new List<BandSongSample>();
+            MyBand.Songs = _context.BandSongSamples.Where(x => x.BandId == id).ToList();
+
             return View(MyBand);
         }
 
