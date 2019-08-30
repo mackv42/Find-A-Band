@@ -20,7 +20,6 @@ namespace FindABand.Controllers
             _context = context;
         }
 
-            // GET: Invite
         public ActionResult Index()
         {
             return View();
@@ -47,7 +46,17 @@ namespace FindABand.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult UserCreate(Invite invite)
         {
-            return View();
+            var addInvite = new Invite();
+            addInvite.Message = invite.Message;
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
+            addInvite.UserSenderId = invite.UserSenderId;
+            addInvite.BandRecipientId = invite.BandRecipientId;
+            addInvite.UserRecipientId = invite.UserRecipientId;
+            _context.Invites.Add(addInvite);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+         
         }
 
         // GET: Invite/Create
@@ -63,9 +72,6 @@ namespace FindABand.Controllers
             return View(invite);
         }
 
-
-        
-        // POST: Invite/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult BandCreate(Invite invite)
@@ -77,20 +83,9 @@ namespace FindABand.Controllers
             addInvite.BandSenderId = invite.BandSenderId;
             addInvite.UserRecipientId = invite.UserRecipientId;
             
-            //invite.SenderId = user;
-            //invite.Recipient = (int)ViewData["userId"];
             _context.Invites.Add(addInvite);
             _context.SaveChanges();
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index", "Home");
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<ActionResult> Details(int id)
