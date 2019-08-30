@@ -9,19 +9,18 @@ namespace FindABand.Models
 {
     public class Invite
     {
-        //band that sent invite
-        public int SenderId { get; set; }
+        public int? UserSenderId { get; set; }
         [NotMapped]
         public UserAccount UserSender { get; set; }
+
         public int? BandSenderId { get; set; }
         [NotMapped]
         public Band BandSender { get; set; }
-        //Musician that recieved invite
 
-        public int RecipientId { get; set; }
+        public int? UserRecipientId { get; set; }
 
-        [NotMapped]
         public int? BandRecipientId { get; set; }
+
         [NotMapped]
         public Band BandRecipient { get; set; }
         [NotMapped]

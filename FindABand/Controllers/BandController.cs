@@ -100,11 +100,11 @@ namespace FindABand.Controllers
             model.band = band;
             var loggedIn = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userId = _context.UserAccounts.Where(x => x.UserId == loggedIn).FirstOrDefault().ProfileId;
-            var requests = _context.Invites.Where(x => x.RecipientId == userId).ToList();
+            var requests = _context.Invites.Where(x => x.UserRecipientId == userId).ToList();
             int? requestId = null;
             foreach( var request in requests)
             {
-                if(request.SenderId == band.BandId)
+                if(request.BandSenderId == band.BandId)
                 {
                     requestId = request.Id;
                     break;

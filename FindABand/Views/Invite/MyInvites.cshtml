@@ -22,7 +22,7 @@
                 @Html.DisplayFor(modelItem => item.Message)
             </td>
             <td>
-                <a href="/band/details/?id=@item.SenderId">See Details</a>
+                <a href="/band/details/?id=@item.BandSenderId">See Details</a>
             </td>
         </tr>
     }
@@ -44,7 +44,7 @@
                         @Html.DisplayFor(modelItem => item.Message)
                     </td>
                     <td>
-                        <a href="/band/details/?id=@item.SenderId">See Details</a>
+                        <a href="/band/details/?id=@item.UserSenderId">See Details</a>
                     </td>
                 </tr>
             }

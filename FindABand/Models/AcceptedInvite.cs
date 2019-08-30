@@ -10,13 +10,21 @@ namespace FindABand.Models
     public class AcceptedInvite
     {
         [Key]
-        public int Id { get; set; }
+        public int? Id { get; set; }
 
-        public int SenderId { get; set; }
+        public int? UserSenderId { get; set; }
         [NotMapped]
-        public Band Sender { get; set; }
-        public int RecipientId { get; set; }
+        public UserAccount UserSender { get; set; }
+        public int? BandSenderId { get; set; }
+        [NotMapped]
+        public Band BandSender { get; set; }
+
+        public int? UserRecipientId { get; set; }
         [NotMapped]
         public UserAccount Recipient { get; set; }
+
+        public int? BandRecipientId { get; set; }
+        [NotMapped]
+        public Band BandRecipient { get; set; }
     }
 }

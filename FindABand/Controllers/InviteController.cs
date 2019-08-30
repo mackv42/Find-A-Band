@@ -28,15 +28,19 @@ namespace FindABand.Controllers
 
         public ActionResult UserCreate(int? bandId, int? userId)
         {
-            if(bandId != null)
-            {
+            var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Invite invite = new Invite();
+            invite.UserSenderId = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
 
+            if (bandId != null)
+            {
+                invite.BandRecipientId = bandId;
             } else if( userId != null)
             {
-
+                invite.UserRecipientId = userId;
             }
 
-            return View();
+            return View(invite);
         }
 
         [HttpPost]
@@ -52,9 +56,9 @@ namespace FindABand.Controllers
             var sender = _context.Bands.Where(x => x.BandId == bandId).FirstOrDefault();
             var user = _context.UserAccounts.Where(x => x.ProfileId == userId).FirstOrDefault();
             Invite invite = new Invite();
-            invite.SenderId = bandId;
+            invite.BandSenderId = bandId;
             //invite.Sender = sender;
-            invite.RecipientId = userId;
+            invite.UserRecipientId = userId;
             //invite.Recipient = user;
             return View(invite);
         }
@@ -70,10 +74,10 @@ namespace FindABand.Controllers
             addInvite.Message = invite.Message;
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
-            addInvite.SenderId = invite.SenderId;
-            addInvite.RecipientId = invite.RecipientId;
+            addInvite.BandSenderId = invite.BandSenderId;
+            addInvite.UserRecipientId = invite.UserRecipientId;
             
-            invite.SenderId = user;
+            //invite.SenderId = user;
             //invite.Recipient = (int)ViewData["userId"];
             _context.Invites.Add(addInvite);
             _context.SaveChanges();
@@ -101,11 +105,11 @@ namespace FindABand.Controllers
             var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
             var invite = await _context.Invites.Where(x => x.Id == id).FirstOrDefaultAsync();
 
-            if (invite.RecipientId == user)
+            if (invite.UserRecipientId == user)
             {
                 AcceptedInvite acceptedInvite = new AcceptedInvite();
-                acceptedInvite.RecipientId = invite.RecipientId;
-                acceptedInvite.SenderId = invite.SenderId;
+                acceptedInvite.UserRecipientId = invite.UserRecipientId;
+                acceptedInvite.UserSenderId = invite.UserSenderId;
                 await _context.AcceptedInvites.AddAsync(acceptedInvite);
                 _context.Invites.Remove(invite);
                 await _context.SaveChangesAsync();
@@ -123,7 +127,7 @@ namespace FindABand.Controllers
             var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
             var invite = await _context.Invites.Where(x => x.Id == id).FirstOrDefaultAsync();
 
-            if (invite.RecipientId == user)
+            if (invite.UserRecipientId == user)
             {
                 _context.Invites.Remove(invite);
                 await _context.SaveChangesAsync();
@@ -136,7 +140,7 @@ namespace FindABand.Controllers
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
-            var invites = await _context.Invites.Where(x => x.RecipientId == user).ToListAsync();
+            var invites = await _context.Invites.Where(x => x.UserRecipientId == user).ToListAsync();
             foreach( var i in invites )
             {
                 if (i.BandSenderId != null)

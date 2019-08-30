@@ -19,28 +19,28 @@
                 <span asp-validation-for="Message" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input id="RecipientId"
-                       name="RecipientId"
+                <input id="UserRecipientId"
+                       name="UserRecipientId"
                        type="hidden"
-                       value="@Model.RecipientId" />
+                       value="@Model.UserRecipientId" />
             </div>
             <div class="form-group">
-                <input id="SenderId"
-                       name="SenderId"
-                       type="hidden"
-                       value="@Model.SenderId" />
-            </div>
-
-            <div class="form-group">
-                <input id="SenderId"
-                       name="SenderId"
+                <input id="BandSenderId"
+                       name="BandSenderId"
                        type="hidden"
                        value="@Model.BandSenderId" />
             </div>
 
             <div class="form-group">
-                <input id="SenderId"
-                       name="SenderId"
+                <input id="UserSenderId"
+                       name="UserSenderId"
+                       type="hidden"
+                       value="@Model.UserSenderId" />
+            </div>
+
+            <div class="form-group">
+                <input id="BandRecipientId"
+                       name="BandRecipientId"
                        type="hidden"
                        value="@Model.BandRecipientId" />
             </div>
