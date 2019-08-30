@@ -1,0 +1,62 @@
+﻿@model FindABand.ViewModels.TakeTestViewModel
+
+@{
+    ViewData["Title"] = "TakeTest";
+}
+
+<h1>Roadie Test</h1>
+
+@*@foreach(var item in Model.Questions)
+{
+    Model.Answers = new List<TestAnswer>(Model.Questions.Count());
+}*@
+
+<div class="col-md-4">
+    <form asp-action="TakeTest">
+
+        @for (int i = 0; i < Model.Answers.Count(); i++)
+        {
+            <fieldset>
+                <div class="form-group">
+                    <label asp-for="@Model.Answers[i]" class="control-label">@Model.Questions[i].Question</label>
+                    
+                    <select asp-for="@Model.Answers[i]">
+                        <option value="0">
+                            No
+                        </option>
+                        <option value=".5">
+                            Kindof
+                        </option>
+                        <option value="1">
+                            Yes
+                        </option>
+                    </select>
+                    
+                </div>
+            </fieldset>
+        }
+
+        <div class="form-group">
+            <input type="submit" value="Send" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+    <table class="table">
+        <thead>
+        <th>
+        </th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Questions)
+            {
+                <tr>
+                    <td>
+                        
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

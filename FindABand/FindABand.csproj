@@ -26,7 +26,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Views\RoadieTest\" />
     <Folder Include="wwwroot\BandSongs\" />
     <Folder Include="wwwroot\Songs\" />
   </ItemGroup>
