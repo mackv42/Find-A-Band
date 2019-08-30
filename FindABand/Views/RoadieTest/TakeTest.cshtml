@@ -22,13 +22,19 @@
                     
                     <select asp-for="@Model.Answers[i]">
                         <option value="0">
-                            No
+                            Never
+                        </option>
+                        <option value=".25">
+                            Rarely
                         </option>
                         <option value=".5">
-                            Kindof
+                            Sometimes
+                        </option>
+                        <option value=".75">
+                            Often
                         </option>
                         <option value="1">
-                            Yes
+                            Always
                         </option>
                     </select>
                     

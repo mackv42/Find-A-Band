@@ -74,7 +74,6 @@ namespace FindABand.Controllers
             var instrumentsPlayed = _context.TalentByInstruments.Where(x => x.UserId == userId).ToList();
             userAccount.instrumentsPlayed = instrumentsPlayed;
 
-
             return View(userAccount);
         }
 
@@ -208,9 +207,6 @@ namespace FindABand.Controllers
             var users = UsersInDistance(new Coordinates(userAccount.Latitude, userAccount.Longitude), 40);
             users = users.Where(x => PlaysInstrument(x, SearchQuery));
             m.userAccounts = users.ToList();
-
-
-
             m.SearchQuery = SearchQuery;
             
             return View(m);
