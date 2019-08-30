@@ -60,7 +60,7 @@ namespace FindABand.Controllers
 
             _context.SaveChanges();
             //return View();
-            return RedirectToAction("SentRequests", "BandInvite");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

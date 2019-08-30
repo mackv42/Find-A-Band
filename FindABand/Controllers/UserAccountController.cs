@@ -117,6 +117,36 @@ namespace FindABand.Controllers
             }
         }
 
+        public ActionResult Edit()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
+
+            return View(userAccount);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(UserAccount account)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAccount = await _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+            userAccount.Address = account.Address;
+            userAccount.City = account.City;
+            userAccount.State = account.State;
+            userAccount.FirstName = account.FirstName;
+            userAccount.LastName = account.LastName;
+
+            var result = await client.GetStringAsync($"https://maps.googleapis.com/maps/api/geocode/json?address={account.Address}+{account.City}+{account.State}&key={GoogleMapsApiKey.Token}");
+            var data = JsonConvert.DeserializeObject<JObject>(result);
+            double lat = (double)data["results"][0]["geometry"]["location"]["lat"];
+            double lon = (double)data["results"][0]["geometry"]["location"]["lng"];
+            account.Latitude = lat;
+            account.Longitude = lon;
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("MyDetails", "UserAccount");
+        }
         private bool PlaysInstrument(UserAccount userAccount, int instrumentId)
         {
             var instruments = _context.TalentByInstruments.Where(x => x.UserId == userAccount.UserId);
@@ -153,8 +183,18 @@ namespace FindABand.Controllers
             foreach ( var account in accountsInDistance )
             {
                 var testResults = _context.TestAnswers.Where(x => x.UserId == account.UserId).ToList();
+                if(testResults.Count == 0)
+                {
+                    continue;
+                }
                 double similarity = RoadieTestController.Compare(userAccountRoadieTest, testResults);
+
+                if (similarity < .5)
+                {
+                    similarAccounts.Add(account);
+                }
             }
+
             //List<UserAccount> similarAccounts = accountsInDistance.Where(x => );
             return View(similarAccounts);
         }

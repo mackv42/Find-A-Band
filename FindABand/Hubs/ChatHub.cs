@@ -15,13 +15,15 @@ namespace SignalRChat.Hubs
         {
             _context = context;
         }
-        public async Task SendMessage(string userId1, string userId2, string message)
+        public async Task SendMessage(string userId1, string userId2, int? bandId1, int? bandId2, string message)
         {
             var user = _context.UserAccounts.Where(x => x.UserId == userId1).FirstOrDefault();
             var m = new Message();
             m.Text = message;
-            m.SenderId = user.ProfileId;
-            m.RecipientId = _context.Bands.Where(x => x.UserId == userId2).FirstOrDefault().BandId;
+            m.SenderId = userId1;
+            m.SenderBandId = bandId1;
+            m.RecipientId = userId2;
+            m.RecipientBandId = bandId2;
             await _context.Messages.AddAsync(m);
             await _context.SaveChangesAsync();
             await Clients.All.SendAsync("ReceiveMessage", user.FirstName, message);
