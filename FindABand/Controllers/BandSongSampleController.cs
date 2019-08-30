@@ -19,7 +19,6 @@ namespace FindABand.Controllers
         public BandSongSampleController(ApplicationDbContext context)
         {
             _context = context;
-
         }
 
         public ActionResult Create(int bandId)
@@ -41,28 +40,13 @@ namespace FindABand.Controllers
                 //var fileName = string.Empty;
                 string PathDB = string.Empty;
 
-                //var files = HttpContext.Request.Form.Files;
-
                 foreach (var file in files)
                 {
                     if (file.Length > 0)
                     {
-                        //Getting FileName
-
-
-                        //Assigning Unique Filename (Guid)
-                        //var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                        //Getting file Extension
                         var FileExtension = Path.GetExtension(file.FileName);
 
-                        // concating  FileName + FileExtension
                         newFileName = userId.ToString() + "_" + file.FileName;
-
-                        // Combines two strings into a path.
-
-
-                        // if you want to store path of folder in database
                         PathDB = "wwwroot/BandSongs/" + newFileName;
 
                         addSong.FileName = "BandSongs/" + newFileName;
@@ -81,7 +65,9 @@ namespace FindABand.Controllers
             await _context.BandSongSamples.AddAsync(addSong);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Create", "BandSongSample");
+            BandSongSample sample = new BandSongSample();
+            sample.BandId = bandId;
+            return View("Create", sample); 
         }
     }
 }
