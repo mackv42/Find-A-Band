@@ -39,27 +39,42 @@ namespace FindABand.Controllers
             return View(MyBands);
         }
 
-        //public async Task<ActionResult> ConnectedBands()
-        //{
-        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
-        //    var invites = _context.AcceptedInvites.Where(x => x.RecipientId == user);
-        //    var bands = new List<Band>();
-
-        //    foreach(var invite in invites)
-        //    {
-        //        bands.Add(_context.Bands.Where(x => x.BandId == invite.SenderId).FirstOrDefault());
-        //    }
-
-        //    return View(bands);
-        //}
-
         public ActionResult MyDetails(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var MyBands = _context.Bands.Where(x => x.UserId == userId);
             var MyBand = MyBands.Where(x => x.BandId == id).FirstOrDefault();
             return View(MyBand);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var MyBands = _context.Bands.Where(x => x.UserId == userId);
+            var MyBand = MyBands.Where(x => x.BandId == id).FirstOrDefault();
+            return View(MyBand);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(Band account)
+        {
+            var edit = await _context.Bands.Where(x => x.BandId == account.BandId).FirstOrDefaultAsync();
+            edit.Address = account.Address;
+            edit.City = account.City;
+            edit.Description = account.Description;
+            edit.GenreId = account.GenreId;
+            edit.State = account.State;
+
+            var result = await client.GetStringAsync($"https://maps.googleapis.com/maps/api/geocode/json?address={account.Address}+{account.City}+{account.State}&key={GoogleMapsApiKey.Token}");
+            var data = JsonConvert.DeserializeObject<JObject>(result);
+            double lat = (double)data["results"][0]["geometry"]["location"]["lat"];
+            double lon = (double)data["results"][0]["geometry"]["location"]["lng"];
+            edit.Latitude = lat;
+            edit.Longitude = lon;
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("YourBands", "Band");
         }
 
         public async Task<ActionResult> Details(int id)

@@ -54,3 +54,4 @@ C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\RoadieTest\TakeTest.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\SimilarUsers.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\Edit.g.cshtml.cs
+C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Band\Edit.g.cshtml.cs
