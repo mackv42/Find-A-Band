@@ -75,4 +75,10 @@
             </div>
         </form>
     </div>
+
+    @if(Model.Bands.Count() == 0)
+    {
+        <h4>It Looks like you don't have any bands.<br /> Would You like to create One?</h4>
+        <a href="/band/create"><input type="button" value="Create"/></a>
+    }
 </div>

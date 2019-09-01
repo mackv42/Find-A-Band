@@ -29,17 +29,6 @@ namespace FindABand.Controllers
             return View(model);
         }
 
-        public static double Compare(List<TestAnswer> answerList1, List<TestAnswer> answerList2)
-        {
-            double result = 0;
-            for( int i=0; i<answerList1.Count(); i++)
-            {
-                result += Math.Abs(answerList1[i].Answer - answerList2[i].Answer);
-            }
-
-            return result;
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult TakeTest(List<double> Answers)
@@ -60,7 +49,18 @@ namespace FindABand.Controllers
 
             _context.SaveChanges();
             //return View();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SimalarUsers", "UserAccount");
+        }
+
+        public static double Compare(List<TestAnswer> answerList1, List<TestAnswer> answerList2)
+        {
+            double result = 0;
+            for( int i=0; i<answerList1.Count(); i++)
+            {
+                result += Math.Abs(answerList1[i].Answer - answerList2[i].Answer);
+            }
+
+            return result;
         }
     }
 }
