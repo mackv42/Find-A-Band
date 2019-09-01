@@ -2,36 +2,78 @@
 
 @{
     ViewData["Title"] = "List";
+    bool isABand  = false;
 }
 
 <h1>Musicians you've connected with</h1>
 
+
 <table class="table">
     <tbody>
-@foreach (var item in Model.ConnectedAccounts) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.State)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a href="Message/Messages?userId=@item.ProfileId">Message</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.ConnectedAccounts) {
+            foreach (var band in Model.UserBands)
+            {
+                foreach (var invite in Model.AcceptedInvites)
+                {
+                    if(invite == null) { continue; }
+                    if (invite.BandSenderId == band.BandId || invite.BandRecipientId == band.BandId)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FirstName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LastName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.State)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                <a href="/Message/Messages?usermId=@item.ProfileId&bandsId=@band.BandId">Message</a>
+                            </td>
+                        </tr>
+                        isABand = true;
+                    }
+                }
+            }
+
+            if (!isABand)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        <a href="/Message/Messages?usermId=@item.ProfileId">Message</a>
+                    </td>
+                </tr>
+            }
+
+            isABand = false;
+        }
     </tbody>
 </table>

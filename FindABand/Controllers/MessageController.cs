@@ -21,8 +21,10 @@ namespace FindABand.Controllers
         }
 
             // GET: Message
-      
-        public ActionResult Messages(int? accountId, int? bandId)
+        
+
+         //band or user your messaging and band your sending messages as
+        public ActionResult Messages(int? usermId, int? bandmId, int? bandsId)
         {
             //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
