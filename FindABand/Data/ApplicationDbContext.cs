@@ -32,6 +32,7 @@ namespace FindABand.Data
         public DbSet<BandMessage> BandMessages { get; set; }
         public DbSet<RoadieTestQuestion> RoadieTestQuestions { get; set; }
         public DbSet<TestAnswer> TestAnswers { get; set; }
+        public DbSet<BandRoadieTestQuestion> BandRoadieTestQuestions { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
