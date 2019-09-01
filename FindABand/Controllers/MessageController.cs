@@ -26,6 +26,24 @@ namespace FindABand.Controllers
          //band or user your messaging and band your sending messages as
         public ActionResult Messages(int? usermId, int? bandmId, int? bandsId)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
+
+            var allMessages = _context.Messages.Where(x => x.SenderId == userAccount.ProfileId);
+            if(bandsId != null)
+            {
+                allMessages = _context.Messages.Where(x => x.RecipientBandId == bandsId || x.SenderBandId == bandsId);
+            }
+
+            var Messages = new List<Message>();
+            if(usermId != null)
+            {
+                Messages = allMessages.Where(x => x.SenderId == usermId || x.RecipientId == usermId).ToList();
+            } else if(bandmId != null)
+            {
+                Messages = allMessages.Where(x => x.SenderBandId == bandmId || x.RecipientBandId == bandmId).ToList();
+            }
+            
             //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
 
@@ -38,15 +56,16 @@ namespace FindABand.Controllers
             //{
             //    bandAccount = _context.UserAccounts.Where(x => x.ProfileId == accountId).FirstOrDefault();
             //}
-            
+
             //var messages = _context.Messages.Where(x => x.SenderId == userAccount.ProfileId || x.RecipientId == userAccount.ProfileId);
             //messages = messages.Where(x => x.SenderId == userAccount.ProfileId && x.RecipientId == userAccount.ProfileId);
             //MessageViewModel m = new MessageViewModel();
             //m.Messages = messages.ToList();
             //m.MyId = userAccount.ProfileId;
             //m.UserId = bandAccount.ProfileId;
-
-            return View();
+            MessageViewModel m = new MessageViewModel();
+            m.Messages = Messages;
+            return View(m);
         }
 
         [HttpPost]
