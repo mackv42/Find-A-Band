@@ -135,12 +135,32 @@ namespace FindABand.Controllers
         {
             var id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.UserAccounts.Where(x => x.UserId == id).FirstOrDefault().ProfileId;
+            var myBands = await _context.Bands.Where(x => x.UserId == id).ToListAsync();
+
             var invites = await _context.Invites.Where(x => x.UserRecipientId == user).ToListAsync();
+
+            foreach(var band in myBands)
+            {
+                var In = await _context.Invites.Where(x => x.BandRecipientId == band.BandId).ToListAsync();
+                foreach(var i in In)
+                {
+                    invites.Add(i);
+                }
+            }
+
             foreach( var i in invites )
             {
                 if (i.BandSenderId != null)
                 {
                     i.BandSender = await _context.Bands.Where(x => x.BandId == i.BandSenderId).FirstOrDefaultAsync();
+                }
+            }
+
+            foreach( var i in invites)
+            {
+                if(i.UserSenderId != null)
+                {
+                    i.UserSender = await _context.UserAccounts.Where(x => x.ProfileId == i.UserSenderId).FirstOrDefaultAsync();
                 }
             }
             return View(invites);

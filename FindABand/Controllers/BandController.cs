@@ -133,7 +133,8 @@ namespace FindABand.Controllers
             addBand.Name = band.Name;
             addBand.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             addBand.Description = band.Description;
-            var result = await client.GetStringAsync($"https://maps.googleapis.com/maps/api/geocode/json?address={addBand.City}+{addBand.State}&key={GoogleMapsApiKey.Token}");
+            addBand.Test = band.Test;
+            var result = await client.GetStringAsync($"https://maps.googleapis.com/maps/api/geocode/json?address={addBand.Address}+{addBand.City}+{addBand.State}&key={GoogleMapsApiKey.Token}");
             var data = JsonConvert.DeserializeObject<JObject>(result);
             double lat = (double)data["results"][0]["geometry"]["location"]["lat"];
             double lon = (double)data["results"][0]["geometry"]["location"]["lng"];

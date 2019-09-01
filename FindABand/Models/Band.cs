@@ -29,5 +29,7 @@ namespace FindABand.Models
         public string GenreName { get; set; }
         [NotMapped]
         public List<BandSongSample> Songs { get; set; }
+
+        public bool Test { get; set; }
     }
 }
