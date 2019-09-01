@@ -55,8 +55,6 @@ namespace FindABand.Controllers
                 }
             }
 
-            
-
             model.ConnectedAccounts = UserAccounts;
             return View(model);
         }

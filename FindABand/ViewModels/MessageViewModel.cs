@@ -14,7 +14,9 @@ namespace FindABand.ViewModels
         }
         
         public List<Message> Messages { get; set; }
-        public string MyId { get; set; }
-        public string UserId { get; set; }
+        public int? MyProfileId { get; set; }
+        public int? MyBandId { get; set; }
+        public int? UserId { get; set; }
+        public int? BandId { get; set; }
     }
 }

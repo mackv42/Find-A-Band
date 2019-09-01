@@ -15,9 +15,9 @@ namespace SignalRChat.Hubs
         {
             _context = context;
         }
-        public async Task SendMessage(string userId1, string userId2, int? bandId1, int? bandId2, string message)
+        public async Task SendMessage(int? userId1, int? userId2, int? bandId1, int? bandId2, string message)
         {
-            var user = _context.UserAccounts.Where(x => x.UserId == userId1).FirstOrDefault();
+            var user = _context.UserAccounts.Where(x => x.ProfileId == userId1).FirstOrDefault();
             var m = new Message();
             m.Text = message;
             m.SenderId = userId1;

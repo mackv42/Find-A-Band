@@ -6,9 +6,6 @@
 
 <h1>Messages</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <tbody>
         @foreach (var item in Model.Messages)
@@ -59,7 +56,7 @@
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 @*<script src="~/js/Chat.js"></script>*@
 
-<script>
+@*<script>
     
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
@@ -90,4 +87,4 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     });
     event.preventDefault();
 });
-</script>
+</script>*@

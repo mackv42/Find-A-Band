@@ -97,7 +97,7 @@ namespace FindABand.Controllers
         public async Task<ActionResult> Accept(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
+            var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
             var invite = await _context.Invites.Where(x => x.Id == id).FirstOrDefaultAsync();
             var bands = await _context.Bands.Where(x => x.UserId == userId).ToListAsync();
 
@@ -109,6 +109,13 @@ namespace FindABand.Controllers
                     acceptedInvite.UserRecipientId = invite.UserRecipientId;
                     acceptedInvite.UserSenderId = invite.UserSenderId;
                     acceptedInvite.BandRecipientId = band.BandId;
+                    //acceptedInvite.BandSenderId = band.Band
+                    var message = new Message();
+                    message.Text = $"Start Of Conversation with {band.Name} and {user.FirstName}";
+
+                    message.SenderId = user.ProfileId;
+                    message.RecipientBandId = band.BandId;
+                    await _context.Messages.AddAsync(message);
                     await _context.AcceptedInvites.AddAsync(acceptedInvite);
                     _context.Invites.Remove(invite);
                     await _context.SaveChangesAsync();
@@ -117,11 +124,30 @@ namespace FindABand.Controllers
                     return RedirectToAction("Conversation", "Message");
                 }
             }
-            if (invite.UserRecipientId == user)
+            if (invite.UserRecipientId == user.ProfileId)
             {
                 AcceptedInvite acceptedInvite = new AcceptedInvite();
                 acceptedInvite.UserRecipientId = invite.UserRecipientId;
                 acceptedInvite.UserSenderId = invite.UserSenderId;
+                acceptedInvite.BandSenderId = invite.BandSenderId;
+
+                var message = new Message();
+                if (invite.BandSenderId != null)
+                {
+                    var band = _context.Bands.Where(x => x.BandId == invite.BandSenderId).FirstOrDefault();
+                    message.Text = $"Start Of Conversation with {band.Name} and {user.FirstName}";
+                }
+                else
+                {
+                    var userSender = _context.UserAccounts.Where(x => x.ProfileId == invite.UserSenderId).FirstOrDefault();
+                    message.Text = $"Start Of Conversation with {userSender.FirstName} and {user.FirstName}";
+                }
+
+                message.SenderId = user.ProfileId;
+                message.SenderBandId = acceptedInvite.BandSenderId;
+                message.RecipientBandId = acceptedInvite.BandRecipientId;
+                message.RecipientId = acceptedInvite.UserRecipientId;
+                await _context.Messages.AddAsync(message);
                 await _context.AcceptedInvites.AddAsync(acceptedInvite);
                 _context.Invites.Remove(invite);
                 await _context.SaveChangesAsync();
