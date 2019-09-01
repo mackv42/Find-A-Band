@@ -15,5 +15,6 @@ namespace FindABand.ViewModels
         public int bandId { get; set; }
         public UserAccount Account { get; set; }
         public List<Band> Bands { get; set; }
+        public int? inviteId { get; set; }
     }
 }

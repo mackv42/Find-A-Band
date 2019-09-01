@@ -64,6 +64,20 @@ namespace FindABand.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             //var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
             model.Bands = _context.Bands.Where(x => x.UserId == userId).ToList();
+
+            var invite = _context.Invites.Where(x => x.UserRecipientId == user.ProfileId).FirstOrDefault();
+            foreach(var band in model.Bands)
+            {
+                var i = _context.Invites.Where(x => x.BandRecipientId == band.BandId).FirstOrDefault();
+                if( i != null)
+                {
+                    invite = i;
+                }
+            }
+            if(invite != null)
+            {
+                model.inviteId = invite.Id;
+            }
             return View(model);
         }
 

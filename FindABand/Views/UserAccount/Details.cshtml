@@ -76,9 +76,14 @@
         </form>
     </div>
 
-    @if(Model.Bands.Count() == 0)
+    @if (Model.Bands.Count() == 0)
     {
         <h4>It Looks like you don't have any bands.<br /> Would You like to create One?</h4>
-        <a href="/band/create"><input type="button" value="Create"/></a>
+        <a href="/band/create"><input type="button" value="Create" /></a>
+    }
+
+    @if (Model.inviteId != null)
+    {
+        <h4>This User sent you an invite <a href="/invite/details/?id=@Model.inviteId" style="color: green">View Invite</a></h4>
     }
 </div>

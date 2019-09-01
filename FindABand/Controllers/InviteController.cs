@@ -99,7 +99,24 @@ namespace FindABand.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
             var invite = await _context.Invites.Where(x => x.Id == id).FirstOrDefaultAsync();
+            var bands = await _context.Bands.Where(x => x.UserId == userId).ToListAsync();
 
+            foreach(var band in bands)
+            {
+                if (invite.BandRecipientId == band.BandId)
+                {
+                    AcceptedInvite acceptedInvite = new AcceptedInvite();
+                    acceptedInvite.UserRecipientId = invite.UserRecipientId;
+                    acceptedInvite.UserSenderId = invite.UserSenderId;
+                    acceptedInvite.BandRecipientId = band.BandId;
+                    await _context.AcceptedInvites.AddAsync(acceptedInvite);
+                    _context.Invites.Remove(invite);
+                    await _context.SaveChangesAsync();
+
+                    //Which controller should this belong to?
+                    return RedirectToAction("Conversation", "Message");
+                }
+            }
             if (invite.UserRecipientId == user)
             {
                 AcceptedInvite acceptedInvite = new AcceptedInvite();
