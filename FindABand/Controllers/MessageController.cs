@@ -65,13 +65,30 @@ namespace FindABand.Controllers
             //m.UserId = bandAccount.ProfileId;
             MessageViewModel m = new MessageViewModel();
             m.Messages = Messages;
+            m.MyBandId = bandsId;
+            m.UserId = usermId;
+            m.BandId = bandmId;
             return View(m);
         }
 
         [HttpPost]
-        public ActionResult Messages(MessageViewModel m, string Message)
+        public ActionResult Messages(int? usermId, int? bandmId, int? bandsId, string text)
         {
+            Message newMessage = new Message();
 
+            newMessage.SenderBandId = bandsId;
+
+            if(bandsId == null)
+            {
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                newMessage.SenderId = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
+            }
+            newMessage.RecipientId = usermId;
+            newMessage.RecipientBandId = bandmId;
+            newMessage.Text = text;
+
+            _context.Messages.Add(newMessage);
+            _context.SaveChanges();
 
             return View();
         }

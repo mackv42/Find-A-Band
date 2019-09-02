@@ -14,7 +14,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Text)
                 </td>
-                
+
             </tr>
         }
     </tbody>
@@ -45,41 +45,73 @@
     </div>
 </div>
 
-<script>
+<form asp-action="Messages">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-</script>
+    <div class="form-group">
+        <input id="text"
+               name="text"
+               type="text"
+               value="" />
+    </div>
+    
+    <div class="form-group">
+        <input id="usermId"
+               name="usermId"
+               type="hidden"
+               value="@Model.UserId" />
+    
+    </div>
+    <div class="form-group">
+        <input id="bandmId"
+               name="bandmId"
+               type="hidden"
+               value="@Model.BandId" />
+    </div>
+
+    <div class="form-group">
+        <input id="bandsId"
+               name="bandsId"
+               type="hidden"
+               value="@Model.MyBandId" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Send" class="btn btn-primary" />
+    </div>
+</form>
+
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 @*<script src="~/js/Chat.js"></script>*@
 
 @*<script>
-    
 
-var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-//Disable send button until connection is established
-document.getElementById("sendButton").disabled = true;
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
-connection.on("ReceiveMessage", function (user, message) {
-    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    var encodedMsg = user + " says " + msg;
-    var li = document.createElement("li");
-    li.textContent = encodedMsg;
-    document.getElementById("messagesList").appendChild(li);
-});
+    //Disable send button until connection is established
+    document.getElementById("sendButton").disabled = true;
 
-connection.start().then(function () {
-    document.getElementById("sendButton").disabled = false;
-}).catch(function (err) {
-    return console.error(err.toString());
-});
-        var userId1 = "@Model.MyId";
-    var userId2 = "@Model.UserId";
-document.getElementById("sendButton").addEventListener("click", function (event) {
-    var user = document.getElementById("userInput").value;
-    var message = document.getElementById("messageInput").value;
-    connection.invoke("SendMessage", "@Model.MyId", "@Model.UserId", message).catch(function (err) {
+    connection.on("ReceiveMessage", function (user, message) {
+        var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        var encodedMsg = user + " says " + msg;
+        var li = document.createElement("li");
+        li.textContent = encodedMsg;
+        document.getElementById("messagesList").appendChild(li);
+    });
+
+    connection.start().then(function () {
+        document.getElementById("sendButton").disabled = false;
+    }).catch(function (err) {
         return console.error(err.toString());
     });
-    event.preventDefault();
-});
-</script>*@
+            var userId1 = "@Model.MyId";
+        var userId2 = "@Model.UserId";
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        var user = document.getElementById("userInput").value;
+        var message = document.getElementById("messageInput").value;
+        connection.invoke("SendMessage", "@Model.MyId", "@Model.UserId", message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+    });
+    </script>*@
