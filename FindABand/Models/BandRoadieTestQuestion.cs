@@ -11,6 +11,7 @@ namespace FindABand.Models
         [Key]
         public int Id { get; set; }
         public string Question { get; set; }
+        public double Weight { get; set; }
         public int BandId { get; set; }
     }
 }
