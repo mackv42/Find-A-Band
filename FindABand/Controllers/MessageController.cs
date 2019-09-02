@@ -90,7 +90,8 @@ namespace FindABand.Controllers
             _context.Messages.Add(newMessage);
             _context.SaveChanges();
 
-            return View();
+            //return View($"../Messages/?usermId={usermId}&bandmId={bandmId}&bandsId={bandsId}");
+            return RedirectToAction("Messages", new { usermId = usermId, bandmId = bandmId, bandsId = bandsId});
         }
 
         public ActionResult BandMessages(int? bandid, int? accountId) 

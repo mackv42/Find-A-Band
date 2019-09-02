@@ -10,40 +10,29 @@
     <tbody>
         @foreach (var item in Model.Messages)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Text)
-                </td>
+            @if (item.SenderId == Model.MyProfileId || item.SenderBandId == Model.MyBandId)
+            {
+                <tr>
+                    <td>
+                        <p><span style="color: green;">You Said</span> @Html.DisplayFor(modelItem => item.Text)</p>
+                    </td>
 
-            </tr>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td>
+                        <p><span style="color: green;">@Model.UserId Said</span> @Html.DisplayFor(modelItem => item.Text)</p>
+                    </td>
+
+                </tr>
+            }
         }
     </tbody>
 </table>
 
 
-<div class="container">
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-6">&nbsp;</div>
-        <div class="col-6">
-            User<input type="text" id="userInput" />
-            <br />
-            Message...<input type="text" id="messageInput" />
-            <input type="button" id="sendButton" value="Send Message" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <hr />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">&nbsp;</div>
-        <div class="col-6">
-            <ul id="messagesList"></ul>
-        </div>
-    </div>
-</div>
 
 <form asp-action="Messages">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -54,13 +43,13 @@
                type="text"
                value="" />
     </div>
-    
+
     <div class="form-group">
         <input id="usermId"
                name="usermId"
                type="hidden"
                value="@Model.UserId" />
-    
+
     </div>
     <div class="form-group">
         <input id="bandmId"
@@ -115,3 +104,27 @@
         event.preventDefault();
     });
     </script>*@
+
+@*<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            User<input type="text" id="userInput" />
+            <br />
+            Message...<input type="text" id="messageInput" />
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>*@
