@@ -20,9 +20,6 @@ namespace FindABand.Controllers
             _context = context;
         }
 
-            // GET: Message
-        
-
          //band or user your messaging and band your sending messages as
         public ActionResult Messages(int? usermId, int? bandmId, int? bandsId)
         {
@@ -57,8 +54,6 @@ namespace FindABand.Controllers
         public ActionResult Messages(int? usermId, int? bandmId, int? bandsId, string text)
         {
             Message newMessage = new Message();
-
-            
 
             if(bandsId == null)
             {

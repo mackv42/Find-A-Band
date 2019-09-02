@@ -11,16 +11,23 @@
     Model.Answers = new List<TestAnswer>(Model.Questions.Count());
 }*@
 
-<div class="col-md-4">
-    <form asp-action="TakeTest">
+<div class="col-md-8">
+    <form asp-action="TakeTest" width="500px">
 
         @for (int i = 0; i < Model.Answers.Count(); i++)
         {
             <fieldset>
-                <div class="form-group">
+                <div class="form-group" width="600px;">
                     <label asp-for="@Model.Answers[i]" class="control-label">@Model.Questions[i].Question</label>
                     
-                    <select asp-for="@Model.Answers[i]">
+
+                    &nbsp &nbsp Never: <input type="radio" value="0" asp-for="@Model.Answers[i]"/> &nbsp|
+                    Rarely: <input type="radio" value=".5" asp-for="@Model.Answers[i]"/> &nbsp|
+                    Sometimes: <input type="radio" value="1" asp-for="@Model.Answers[i]"/> &nbsp|
+                    Often: <input type="radio" value="1" asp-for="@Model.Answers[i]"/> &nbsp|
+                    Always: <input type="radio" value="1" asp-for="@Model.Answers[i]"/>
+
+                    @*<select asp-for="@Model.Answers[i]">
                         <option value="0">
                             Never
                         </option>
@@ -36,7 +43,7 @@
                         <option value="1">
                             Always
                         </option>
-                    </select>
+                    </select>*@
                     
                 </div>
             </fieldset>
