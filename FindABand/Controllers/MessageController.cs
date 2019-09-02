@@ -29,7 +29,7 @@ namespace FindABand.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
 
-            var allMessages = _context.Messages.Where(x => x.SenderId == userAccount.ProfileId);
+            var allMessages = _context.Messages.Where(x => x.SenderId == userAccount.ProfileId || x.RecipientId == userAccount.ProfileId);
             if(bandsId != null)
             {
                 allMessages = _context.Messages.Where(x => x.RecipientBandId == bandsId || x.SenderBandId == bandsId);
@@ -66,6 +66,7 @@ namespace FindABand.Controllers
             MessageViewModel m = new MessageViewModel();
             m.Messages = Messages;
             m.MyBandId = bandsId;
+            m.MyProfileId = userAccount.ProfileId;
             m.UserId = usermId;
             m.BandId = bandmId;
             return View(m);
@@ -76,13 +77,15 @@ namespace FindABand.Controllers
         {
             Message newMessage = new Message();
 
-            newMessage.SenderBandId = bandsId;
+            
 
             if(bandsId == null)
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 newMessage.SenderId = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault().ProfileId;
             }
+
+            newMessage.SenderBandId = bandsId;
             newMessage.RecipientId = usermId;
             newMessage.RecipientBandId = bandmId;
             newMessage.Text = text;

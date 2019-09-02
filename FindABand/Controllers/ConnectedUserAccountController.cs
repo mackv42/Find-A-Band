@@ -31,8 +31,14 @@ namespace FindABand.Controllers
 
             foreach (var band in model.UserBands)
             {
-                var invite = _context.AcceptedInvites.Where(x => x.BandRecipientId == band.BandId || x.BandSenderId == band.BandId).FirstOrDefault();
-                model.AcceptedInvites.Add(invite);
+                if (band != null)
+                {
+                    var invite = await _context.AcceptedInvites.Where(x => x.BandRecipientId == band.BandId || x.BandSenderId == band.BandId).ToListAsync();
+                    foreach (var i in invite)
+                    {
+                        model.AcceptedInvites.Add(i);
+                    }
+                }
             }
 
             List<UserAccount> UserAccounts = new List<UserAccount>();

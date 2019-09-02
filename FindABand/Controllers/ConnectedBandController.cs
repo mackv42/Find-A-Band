@@ -24,11 +24,11 @@ namespace FindABand.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userAccount = await _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefaultAsync();
-            var invites = _context.AcceptedInvites.Where(x => x.UserRecipientId == userAccount.ProfileId);
+            var invites = _context.AcceptedInvites.Where(x => x.UserRecipientId == userAccount.ProfileId || x.UserSenderId == userAccount.ProfileId);
             List<Band> bands = new List<Band>();
             foreach (var invite in invites)
             {
-                bands.Add(_context.Bands.Where(x => x.BandId == invite.BandSenderId).FirstOrDefault());
+                bands.Add(_context.Bands.Where(x => x.BandId == invite.BandSenderId || x.BandId == invite.BandRecipientId).FirstOrDefault());
             }
             return View(bands);
         }

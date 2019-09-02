@@ -6,11 +6,19 @@
 
 <h1>Messages</h1>
 
+<style>
+    #messages{
+        overflow: scroll; 
+        width: 960px;
+        height: 500px;
+    }
+</style>
+<div id="messages">
 <table class="table">
     <tbody>
         @foreach (var item in Model.Messages)
         {
-            @if (item.SenderId == Model.MyProfileId || item.SenderBandId == Model.MyBandId)
+            @if (item.SenderId == Model.MyProfileId || (item.SenderBandId == Model.MyBandId && Model.MyBandId != null) )
             {
                 <tr>
                     <td>
@@ -23,7 +31,7 @@
             {
                 <tr>
                     <td>
-                        <p><span style="color: green;">@Model.UserId Said</span> @Html.DisplayFor(modelItem => item.Text)</p>
+                        <p><span style="color: red;">@Model.UserId Said</span> @Html.DisplayFor(modelItem => item.Text)</p>
                     </td>
 
                 </tr>
@@ -31,7 +39,7 @@
         }
     </tbody>
 </table>
-
+</div>
 
 
 <form asp-action="Messages">
