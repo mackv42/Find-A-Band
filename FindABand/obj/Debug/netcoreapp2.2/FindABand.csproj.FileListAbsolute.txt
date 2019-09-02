@@ -57,3 +57,4 @@ C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\UserAccount\Create.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\Invite\UserCreate.g.cshtml.cs
 C:\Users\Vincent\source\repos\FindAband\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\ConnectedUserAccount\List.g.cshtml.cs
+C:\Users\Vincent\source\repos\FindABand\FindABand\obj\Debug\netcoreapp2.2\Razor\Views\BandRoadieTest\Create.g.cshtml.cs
