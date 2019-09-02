@@ -44,25 +44,6 @@ namespace FindABand.Controllers
                 Messages = allMessages.Where(x => x.SenderBandId == bandmId || x.RecipientBandId == bandmId).ToList();
             }
             
-            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
-
-            //var bandAccount = new UserAccount();
-            //if (bandId == null)
-            //{
-            //    //bandAccount = _context.Bands.Where(x => x.BandId == bandId).FirstOrDefault();
-            //}
-            //else
-            //{
-            //    bandAccount = _context.UserAccounts.Where(x => x.ProfileId == accountId).FirstOrDefault();
-            //}
-
-            //var messages = _context.Messages.Where(x => x.SenderId == userAccount.ProfileId || x.RecipientId == userAccount.ProfileId);
-            //messages = messages.Where(x => x.SenderId == userAccount.ProfileId && x.RecipientId == userAccount.ProfileId);
-            //MessageViewModel m = new MessageViewModel();
-            //m.Messages = messages.ToList();
-            //m.MyId = userAccount.ProfileId;
-            //m.UserId = bandAccount.ProfileId;
             MessageViewModel m = new MessageViewModel();
             m.Messages = Messages;
             m.MyBandId = bandsId;
@@ -96,16 +77,6 @@ namespace FindABand.Controllers
             //return View($"../Messages/?usermId={usermId}&bandmId={bandmId}&bandsId={bandsId}");
             return RedirectToAction("Messages", new { usermId = usermId, bandmId = bandmId, bandsId = bandsId});
         }
-
-        public ActionResult BandMessages(int? bandid, int? accountId) 
-        {
-            return View();
-        }
-
-        /*public ActionResult BandMessages(int userId, int bandId)
-        {
-
-        }*/
       
     }
 }

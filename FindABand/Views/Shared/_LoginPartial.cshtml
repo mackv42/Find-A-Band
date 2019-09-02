@@ -2,6 +2,11 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+<style>
+    .nav-link{
+        font-size: 13px;
+    }
+</style>
     <ul class="navbar-nav">
         @if (SignInManager.IsSignedIn(User))
         {
@@ -13,6 +18,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" href="/ConnectedBand/List">Connected Bands</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" href="/ConnectedUserAccount/list">Connected Musicians</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-dark" href="/Band/Search">Search Bands</a>
