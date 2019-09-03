@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "MyDetails";
+    Song newSong = new Song();
 }
 
 <h1>My Details</h1>
@@ -58,6 +59,8 @@
     <hr />
     <br />
 }
+
+<a href="/bandsongsample/create?bandId=@Model.BandId">Upload Song</a>
 
 <div>
     <a href="/band/Edit?id=@Model.BandId">Edit</a>
