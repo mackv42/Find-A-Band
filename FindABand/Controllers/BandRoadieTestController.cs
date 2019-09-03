@@ -52,28 +52,33 @@ namespace FindABand.Controllers
             TakeBandRoadieTestViewModel model = new TakeBandRoadieTestViewModel();
             model.Questions = _context.BandRoadieTestQuestions.Where(x => x.BandId == id).ToList();
             model.Answers = new List<double>(new double[model.Questions.Count()]);
+            model.BandId = id;
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TakeTest(List<double> Answers, int id)
+        public ActionResult TakeTest(List<double> Answers, int bandId)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var testAnswers = new List<TestAnswer>();
-            var Questions = _context.BandRoadieTestQuestions.Where(x => x.BandId == id).ToList();
+            var Questions = _context.BandRoadieTestQuestions.Where(x => x.BandId == bandId).ToList();
 
-            //foreach (var answer in Answers)
-            //{
-            //    var ans = new TestAnswer();
-            //    ans.Answer = answer;
-            //    ans.UserId = userId;
-            //    ans.QuestionId = Questions[i++].QuestionId;
-            //}
+            double threshold = .25 * Questions.Count();
 
-            _context.SaveChanges();
-            //return View();
-            return RedirectToAction("SimilarUsers", "UserAccount");
+            double compared = 0;
+
+            for(int i = 0; i<Answers.Count(); i++)
+            {
+                compared += Math.Abs(Answers[i] - Questions[i].Weight);
+            }
+
+            if(compared <= threshold)
+            {
+                return RedirectToAction("UserCreate", "Invite", new { bandId = bandId });
+            }
+
+            return RedirectToAction("Search", "Band");
         }
     }
 }

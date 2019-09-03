@@ -38,22 +38,30 @@
 </div>
 
 <table>
-@foreach (var item in Model.band.Songs)
-{
-    <tr>
-        <td>
-            <a href="/@Html.DisplayFor(modelItem => item.FileName)">@Html.DisplayFor(modelItem => item.FileName)</a>
-            <audio controls>
-                <source src="/@Html.DisplayFor(modelItem => item.FileName)" type="audio/mpeg">
-            </audio>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.band.Songs)
+    {
+        <tr>
+            <td>
+                <a href="/@Html.DisplayFor(modelItem => item.FileName)">@Html.DisplayFor(modelItem => item.FileName)</a>
+                <audio controls>
+                    <source src="/@Html.DisplayFor(modelItem => item.FileName)" type="audio/mpeg">
+                </audio>
+            </td>
+        </tr>
+    }
 </table>
 
-<a href="/invite/UserCreate?bandId=@Model.band.BandId">Invite To Connect</a>
 
-@if(Model.inviteId != null)
+@if (!Model.band.Test)
+{
+    <a href="/invite/UserCreate?bandId=@Model.band.BandId">Invite To Connect</a>
+}
+else
+{
+    <a href="/invite/bandroadietest/taketest?bandId=@Model.band.BandId">This band requires taking a test before connecting with them</a>
+}
+
+@if (Model.inviteId != null)
 {
     <h4>This band sent you an invite <a href="/invite/details/?id=@Model.inviteId" style="color: green">View Invite</a></h4>
 }
