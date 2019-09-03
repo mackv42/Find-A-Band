@@ -17,7 +17,7 @@ namespace FindABand.ViewModels
         }
 
         public List<BandRoadieTestQuestion> Questions { get; set; }
-
+        public int BandId { get; set; }
         [BindProperty, Required]
         public List<double> Answers { get; set; }
     }

@@ -148,9 +148,16 @@ namespace FindABand.Controllers
             {
                 //return RedirectToAction("Create", "BandSongSample");
                 //return View($"BandSongSample/Create?bandId={addBand.BandId}");
-                BandSongSample sample = new BandSongSample();
-                sample.BandId = addBand.BandId;
-                return View("../BandSongSample/Create", sample);
+                if (addBand.Test)
+                {
+                    return RedirectToAction("Create", "BandRoadieTest", new { bandId=addBand.BandId});
+                }
+                else
+                {
+                    BandSongSample sample = new BandSongSample();
+                    sample.BandId = addBand.BandId;
+                    return View("../BandSongSample/Create", sample);
+                }
             }
             catch
             {

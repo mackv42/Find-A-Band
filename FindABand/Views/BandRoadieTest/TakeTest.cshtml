@@ -1,7 +1,43 @@
-﻿
+﻿@model FindABand.ViewModels.TakeBandRoadieTestViewModel
+
 @{
     ViewData["Title"] = "TakeTest";
 }
 
-<h1>TakeTest</h1>
+<h1>Roadie Test</h1>
 
+@*@foreach(var item in Model.Questions)
+    {
+        Model.Answers = new List<TestAnswer>(Model.Questions.Count());
+    }*@
+
+<div class="col-md-8">
+    <form asp-action="TakeTest" width="500px">
+
+        @for (int i = 0; i < Model.Answers.Count(); i++)
+        {
+            <fieldset>
+                <div class="form-group" width="600px;">
+                    <label asp-for="@Model.Answers[i]" class="control-label">@Model.Questions[i].Question</label>
+
+                    &nbsp &nbsp Never: <input type="radio" value="0" asp-for="@Model.Answers[i]" /> &nbsp|
+                    Rarely: <input type="radio" value=".25" asp-for="@Model.Answers[i]" /> &nbsp|
+                    Sometimes: <input type="radio" value=".5" asp-for="@Model.Answers[i]" /> &nbsp|
+                    Often: <input type="radio" value=".75" asp-for="@Model.Answers[i]" /> &nbsp|
+                    Always: <input type="radio" value="1" asp-for="@Model.Answers[i]" />
+                </div>
+            </fieldset>
+        }
+        <div class="form-group">
+            <div class="form-group">
+                <input id="bandId"
+                       name="bandId"
+                       type="hidden"
+                       value="@Model.BandId" />
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

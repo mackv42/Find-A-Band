@@ -47,17 +47,33 @@ namespace FindABand.Controllers
             return RedirectToAction("Create", new { bandId = addQuestion.BandId });
         }
 
-        public ActionResult TakeTest()
+        public ActionResult TakeTest(int id)
         {
-
-            return View();
+            TakeBandRoadieTestViewModel model = new TakeBandRoadieTestViewModel();
+            model.Questions = _context.BandRoadieTestQuestions.Where(x => x.BandId == id).ToList();
+            model.Answers = new List<double>(new double[model.Questions.Count()]);
+            return View(model);
         }
 
-
         [HttpPost]
-        public ActionResult TakeTest(List<double> answers)
+        [ValidateAntiForgeryToken]
+        public ActionResult TakeTest(List<double> Answers, int id)
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var testAnswers = new List<TestAnswer>();
+            var Questions = _context.BandRoadieTestQuestions.Where(x => x.BandId == id).ToList();
+
+            //foreach (var answer in Answers)
+            //{
+            //    var ans = new TestAnswer();
+            //    ans.Answer = answer;
+            //    ans.UserId = userId;
+            //    ans.QuestionId = Questions[i++].QuestionId;
+            //}
+
+            _context.SaveChanges();
+            //return View();
+            return RedirectToAction("SimilarUsers", "UserAccount");
         }
     }
 }
