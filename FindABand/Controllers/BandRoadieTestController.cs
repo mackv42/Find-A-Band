@@ -46,5 +46,18 @@ namespace FindABand.Controllers
 
             return RedirectToAction("Create", new { bandId = addQuestion.BandId });
         }
+
+        public ActionResult TakeTest()
+        {
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult TakeTest(List<double> answers)
+        {
+            return View();
+        }
     }
 }

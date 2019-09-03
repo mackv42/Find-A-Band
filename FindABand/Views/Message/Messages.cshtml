@@ -24,14 +24,13 @@
                     <td>
                         <p><span style="color: green;">You Said</span> @Html.DisplayFor(modelItem => item.Text)</p>
                     </td>
-
                 </tr>
             }
             else
             {
                 <tr>
                     <td>
-                        <p><span style="color: red;">@Model.UserId Said</span> @Html.DisplayFor(modelItem => item.Text)</p>
+                        <p><span style="color: red;">@Model.Name Said</span> @Html.DisplayFor(modelItem => item.Text)</p>
                     </td>
 
                 </tr>
@@ -78,6 +77,11 @@
 </form>
 
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+
+<script>
+    var messagesDiv = document.getElementById("messages");
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+</script>
 @*<script src="~/js/Chat.js"></script>*@
 
 @*<script>

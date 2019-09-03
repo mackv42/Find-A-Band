@@ -47,6 +47,15 @@ namespace FindABand.Controllers
             m.MyProfileId = userAccount.ProfileId;
             m.UserId = usermId;
             m.BandId = bandmId;
+
+            if(bandmId == null)
+            {
+                m.Name = _context.UserAccounts.Where(x => x.ProfileId == usermId).FirstOrDefault().FirstName;
+            }
+            else
+            {
+                m.Name = _context.Bands.Where(x => x.BandId == bandmId).FirstOrDefault().Name;
+            }
             return View(m);
         }
 
