@@ -109,6 +109,7 @@ namespace FindABand.Controllers
                     acceptedInvite.UserRecipientId = invite.UserRecipientId;
                     acceptedInvite.UserSenderId = invite.UserSenderId;
                     acceptedInvite.BandRecipientId = band.BandId;
+                    acceptedInvite.BandSenderId = invite.BandSenderId;
                     //acceptedInvite.BandSenderId = band.Band
                     var message = new Message();
                     message.Text = $"Start Of Conversation with {band.Name} and {user.FirstName}";
@@ -121,7 +122,7 @@ namespace FindABand.Controllers
                     await _context.SaveChangesAsync();
 
                     //Which controller should this belong to?
-                    return RedirectToAction("Conversation", "Message");
+                    return RedirectToAction("Messages", "Message", new { bandmId=invite.BandSenderId, usermId=invite.UserSenderId, bandsId=invite.BandRecipientId});
                 }
             }
             if (invite.UserRecipientId == user.ProfileId)
