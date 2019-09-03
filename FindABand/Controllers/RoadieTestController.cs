@@ -49,7 +49,7 @@ namespace FindABand.Controllers
 
             _context.SaveChanges();
             //return View();
-            return RedirectToAction("SimalarUsers", "UserAccount");
+            return RedirectToAction("SimilarUsers", "UserAccount");
         }
 
         public static double Compare(List<TestAnswer> answerList1, List<TestAnswer> answerList2)
