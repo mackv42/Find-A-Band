@@ -8,7 +8,6 @@
 
 <h1>Musicians you've connected with</h1>
 
-
 <table class="table">
     <tbody>
         @foreach (var item in Model.ConnectedAccounts) {
@@ -54,6 +53,7 @@
 
             if (!isABand)
             {
+                
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.FirstName)

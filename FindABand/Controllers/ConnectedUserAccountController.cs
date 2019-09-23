@@ -19,11 +19,11 @@ namespace FindABand.Controllers
             _context = context;
         }
 
-        public async Task<ActionResult> List()
+        public ActionResult List()
         {
             var model = new ConnectedUserViewModel();
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var userAccount = await _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefaultAsync();
+            var userAccount = _context.UserAccounts.Where(x => x.UserId == userId).FirstOrDefault();
             model.AcceptedInvites = _context.AcceptedInvites.Where(x => x.UserRecipientId == userAccount.ProfileId || x.UserSenderId == userAccount.ProfileId).ToList();
 
             //List<Band> userBands = new List<Band>();
@@ -33,7 +33,7 @@ namespace FindABand.Controllers
             {
                 if (band != null)
                 {
-                    var invite = await _context.AcceptedInvites.Where(x => x.BandRecipientId == band.BandId || x.BandSenderId == band.BandId).ToListAsync();
+                    var invite = _context.AcceptedInvites.Where(x => x.BandRecipientId == band.BandId || x.BandSenderId == band.BandId).ToList();
                     foreach (var i in invite)
                     {
                         model.AcceptedInvites.Add(i);
@@ -43,7 +43,6 @@ namespace FindABand.Controllers
 
             List<UserAccount> UserAccounts = new List<UserAccount>();
 
-
             foreach (var invite in model.AcceptedInvites)
             {
                 if (invite != null)
@@ -51,12 +50,28 @@ namespace FindABand.Controllers
                     var Account = new UserAccount();
                     if (invite.UserSenderId == null)
                     {
-                        Account = await _context.UserAccounts.Where(x => x.ProfileId == invite.UserRecipientId).FirstOrDefaultAsync();
+                        if(invite.UserRecipientId == userAccount.ProfileId)
+                        {
+                            Account = _context.UserAccounts.Where(x => x.ProfileId == invite.UserSenderId).FirstOrDefault();
+                        } else if(invite.UserSenderId == userAccount.ProfileId)
+                        {
+                            Account = _context.UserAccounts.Where(x => x.ProfileId == invite.UserRecipientId).FirstOrDefault();
+                        }
+                        
                     }
                     else
                     {
-                        Account = await _context.UserAccounts.Where(x => x.ProfileId == invite.UserSenderId).FirstOrDefaultAsync();
+                        if (invite.UserRecipientId == userAccount.ProfileId)
+                        {
+                            Account = _context.UserAccounts.Where(x => x.ProfileId == invite.UserSenderId).FirstOrDefault();
+                        }
+                        else if (invite.UserSenderId == userAccount.ProfileId)
+                        {
+                            Account = _context.UserAccounts.Where(x => x.ProfileId == invite.UserRecipientId).FirstOrDefault();
+                        }
                     }
+
+                    
                     UserAccounts.Add(Account);
                 }
             }
